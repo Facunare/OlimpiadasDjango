@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Zona</title>
+</head>
+<body>
+    {% block content %}
+
+        <form action="{% url 'crear_paciente' zona_id %}" method="POST">
+            {% csrf_token %}
+            <input type="text" placeholder="Nombre del paciente..." name="nombre_paciente">
+            <input type="text" placeholder="Apellido del paciente..." name="apellido_paciente">
+            <input type="numbre" placeholder="DNI del paciente..." name="DNI_paciente">
+            <input type="date" name="fecha_nac" id="">
+            <button>
+                Crear
+            </button>
+        </form>
+        {% if pacientes %}
+            {% for paciente in pacientes %}
+                <div class="paciente">
+                    <p>{{paciente.nombre_paciente}}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No hay ningun paciente en este momento</p>
+        {% endif %}
+    
+    {% endblock content %}
+
+    
+</body>
+</html>

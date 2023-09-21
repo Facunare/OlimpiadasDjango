@@ -1,0 +1,93 @@
+{% extends 'base.html' %} {% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'home.css' %}">
+  </head>
+  <body>
+    {% block content %}
+    <div class="zonas"> 
+      {% for zona in zonas %}
+        <a href="{% url 'detalle_zona' zona.id %}" class="zona {{zona.nombre_zona}}">
+          <h2>{{zona.nombre_zona}}</h2>
+          <img src="" alt="">
+          <p>Max: {{zona.cant_pacientes}}</p>
+        </a>
+      {% endfor %}
+    </div>
+
+    <style>
+      .zonas{
+        display: flex;
+        flex-wrap: wrap;
+        gap: 30px 100px;
+        height: auto;
+        align-items: center;
+        margin: 20px;
+        margin-top: 70px;
+      }
+
+      .zona{
+        border-radius: 30px;
+        height: 300px;
+        width: 250px;
+        position: relative;
+        cursor: pointer;
+        transition: box-shadow .3s ease;
+        text-decoration: none;
+        background-color: rgb(138, 138, 221);
+      }
+      
+      .zona:hover{
+        box-shadow: 0 2px 5px #999
+
+      }
+
+      .zona h2{
+        text-align: center;
+        color: white;
+        margin-top: 10px;
+      }
+
+      .zona p{
+        position: absolute;
+        bottom: 0;
+        color: white;
+        padding: 15px;
+      }
+
+      .Quirófano{
+        background-color: #FF8899;
+      }
+
+      .Laboratorio{
+        background-color:  #87CEEB;
+      }
+
+      .Psiquiatría{
+        background-color:  #77AA77;
+      }
+
+      .Radiología{
+        background-color: #CCCC33;
+      }
+
+      .Rehabilitacion{
+        background-color: #A495DD;
+      }
+
+      .Pediatría{
+        background-color: #D6D68C;
+      }
+
+      .Consultas{
+        background-color:#FF9966;
+      }
+
+    </style>
+    {% endblock content %}
+  </body>
+</html>

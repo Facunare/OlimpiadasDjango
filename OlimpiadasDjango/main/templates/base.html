@@ -1,0 +1,37 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'base.css' %}">
+</head>
+<body>
+    <header>
+        <ul class="">
+            {% if user.is_staff %}
+            <li>
+              <a href="{% url 'agregarZona' %}">Agregar zona</a>
+            </li>
+            <li>
+              <a href="{% url 'home' %}">Zonas</a>
+            </li>
+            {% endif %}
+            
+            {% if user.is_authenticated %}
+            <li><a href="{% url 'logout' %}">Log out</a></li>
+            {% else %}
+            <li><a href="{% url 'signup' %}">Sign up</a></li>
+            <li ><a href="{% url 'signin' %}">Sign in</a></li>
+            {% endif %}
+            {% comment %} <li ><a href="{% url 'contacto' %}">CONTACT</a></li> {% endcomment %}
+          </ul>
+    </header>
+
+    {% block content %}
+    {% endblock content %}
+
+</body>
+</html>
