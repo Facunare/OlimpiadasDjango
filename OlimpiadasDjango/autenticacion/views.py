@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
-
+from administracion import models
 # Create your views here.
 
 def signup(request):
@@ -16,6 +16,8 @@ def signup(request):
         if request.POST['password1'] == request.POST['password2']:
             try:
                 user = User.objects.create_user(username=request.POST['username'], password=request.POST['password1'])
+                nueva_perfil = models.Perfil(user = user)
+                nueva_perfil.save()
                 user.save()
                 return redirect('/signin/')
             except:

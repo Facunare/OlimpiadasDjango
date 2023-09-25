@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Zona, Paciente, Medico
+from .models import Zona, Paciente, Medico, Perfil
 from .forms import MedicoForm, PacienteForm
 # Create your views here.
 
@@ -47,9 +47,9 @@ def crear_paciente(req, zona_id):
     if req.method == 'POST':
         nombre_paciente = req.POST['nombre_paciente']
         apellido_paciente = req.POST['apellido_paciente']
-        fecha_nac_paciente = req.POST['fecha_nac']
-        DNI_paciente = req.POST['DNI_paciente']
-        nuevo_paciente = Paciente(nombre_paciente=nombre_paciente, apellido_paciente=apellido_paciente, fecha_nac_paciente=fecha_nac_paciente, dni_paciente=DNI_paciente, zona=zona_id)
+        fecha_nac_paciente = req.POST['fecha_nac_paciente']
+        DNI_paciente = req.POST['dni_paciente']
+        nuevo_paciente = Paciente(nombre_paciente=nombre_paciente, apellido_paciente=apellido_paciente, fecha_nac_paciente=fecha_nac_paciente, dni_paciente=int(DNI_paciente), zona=zona_id)
         nuevo_paciente.save()
     return redirect('/')
     
@@ -79,3 +79,18 @@ def asignarMedico(request, id):
 #         form = PacienteForm(request.POST, instance=paciente)
 
 #     return render(request, 'detalle_zona.html', {'formPaciente': form})
+
+
+def verPerfil(req):
+    perfil = Perfil.objects.get(user=req.user)
+    return render(req, 'perfil.html', {
+        'perfil':perfil
+    })
+
+def llamar(req, id):
+    perfil = Perfil.objects.get(id=id)
+    perfil.isCalling = True
+    perfil.save()
+    return render(req, 'perfil.html', {
+        'perfil':perfil
+    })

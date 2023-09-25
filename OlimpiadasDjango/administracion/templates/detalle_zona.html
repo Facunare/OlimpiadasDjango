@@ -13,26 +13,27 @@
 
             <form action="{% url 'crear_paciente' zona.id %}" method="POST">
             {% csrf_token %}
-            <input type="text" placeholder="Nombre del paciente..." name="nombre_paciente">
-            <input type="text" placeholder="Apellido del paciente..." name="apellido_paciente">
-            <input type="numbre" placeholder="DNI del paciente..." name="DNI_paciente">
-            <input type="date" name="fecha_nac" id="">
-            <button>
-                Crear
-            </button>
+            {{formPaciente}}
+            <button>Crear</button>
         </form>
             <div class="pacientes">
 
                 {% if pacientes %}
                     {% for paciente in pacientes %}
-                        <a class="paciente">
+                        <a class="paciente {% if paciente.perfil.isCalling %} pacienteLlamando {% endif %}">
                             <p>{{paciente.dni_paciente}} | {{paciente.nombre_paciente}} {{paciente.apellido_paciente}} | {{paciente.zona.nombre_zona}} | {{paciente.medico_asignado.nombre_medico}}</p>
-                            <div>
-                                <button class="asignarMedico">Asignar enfermero</button>
-                                {% comment %} <form action="{% url "editar_paciente" paciente.id %}" method="POST">
-                                    {% csrf_token %}
-                                    <button>Editar</button>
-                                </form> {% endcomment %}
+                            <div class="buttons">
+
+                                <div>
+                                    <button class="asignarMedico">Asignar enfermero</button>
+                                </div>
+                                {% if paciente.perfil.isCalling %} 
+                                    <form action="">
+                                        <button>
+                                            Generar reporte
+                                        </button>
+                                    </form>
+                                {% endif %}"
                             </div>
                         </a>
                         <section class="modal">
@@ -58,6 +59,14 @@
             </div>
         </div>
     <style>
+
+        .buttons{
+            display: flex;
+        }
+
+        .pacienteLlamando{
+            background: red;
+        }
 
         .modal form{
             display: flex;
@@ -99,9 +108,9 @@
             cursor: pointer;
             justify-content: space-between;
         }
-        .paciente:hover{
+        {% comment %} .paciente:hover{
             background-color: rgb(243, 243, 243);
-        }
+        } {% endcomment %}
 
         .pacientes{
             width: 100vw;

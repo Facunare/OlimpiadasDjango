@@ -5,3 +5,4 @@ from . import models
 admin.site.register(models.Zona)
 admin.site.register(models.Paciente)
 admin.site.register(models.Medico)
+admin.site.register(models.Perfil)

@@ -29,9 +29,12 @@
             
             {% if user.is_authenticated %}
             <li><a href="{% url 'logout' %}">Log out</a></li>
+            <a href="{% url 'perfil' %}">Perfil</a>
             {% else %}
             <li><a href="{% url 'signup' %}">Sign up</a></li>
             <li ><a href="{% url 'signin' %}">Sign in</a></li>
+            <li>
+            </li>
             {% endif %}
           </ul>
     </header>

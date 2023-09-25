@@ -19,6 +19,7 @@ class PacienteForm(forms.ModelForm):
         fields = [
             'nombre_paciente',
             'apellido_paciente',
-            'dni_paciente',
             'fecha_nac_paciente',
+            'dni_paciente',
+            'perfil'
         ]
