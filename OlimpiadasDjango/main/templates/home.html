@@ -11,10 +11,11 @@
     {% block content %}
     <div class="zonas"> 
       {% for zona in zonas %}
+        
         <a href="{% url 'detalle_zona' zona.id %}" class="zona {{zona.nombre_zona}}">
           <h2>{{zona.nombre_zona}}</h2>
           <img src="" alt="">
-          <p>Max: {{zona.cant_pacientes}}</p>
+          <p>Max: {{zona.cant_pacientes}} | Ocupado: {{zona.cantidad_actual_pacientes}}</p>
         </a>
       {% endfor %}
     </div>

@@ -5,6 +5,8 @@ from django.db import models
 class Zona(models.Model):
     nombre_zona = models.CharField(max_length=50)
     cant_pacientes = models.IntegerField()
+    def __str__(self):
+        return self.nombre_zona
     
     
 class Reporte(models.Model):
@@ -17,13 +19,37 @@ class Medico(models.Model):
     apellido_medico = models.CharField(max_length=100)
     dni_medico = models.CharField(max_length=100)
     fecha_nac_medico = models.DateField()
-    ubicacion_medico = models.CharField(max_length=100)
+    domicilio_medico = models.CharField(max_length=100)
+    zona = models.ForeignKey(Zona, default=None, on_delete=models.CASCADE)
+    def __str__(self):
+        return self.nombre_medico
     
 class Paciente(models.Model):
     nombre_paciente = models.CharField(max_length=100)
     apellido_paciente = models.CharField(max_length=100)
     dni_paciente = models.CharField(max_length=100)
     fecha_nac_paciente = models.DateField()
-    # ubicacion_paciente = models.CharField(max_length=100, default=None)
-    # medico_asignado = models.ForeignKey(Medico, default=None, on_delete=models.CASCADE)
+    medico_asignado = models.ForeignKey(Medico, null=True, on_delete=models.CASCADE)
     zona = models.ForeignKey(Zona, default=None, on_delete=models.CASCADE)
+    domicilio_paciente = models.CharField(max_length=100, default="")
+
+    genero_paciente = models.CharField(max_length=1, default="")
+    telefono_paciente = models.IntegerField(default="")
+    email_paciente = models.CharField(max_length=100, default="")
+    grupo_sanguineo = models.CharField(max_length=5, default="")
+    factor_rh = models.BooleanField(default=False)
+    peso_paciente_kg = models.IntegerField(default=0)
+    altura_paciente = models.IntegerField(default=0)
+    alergias = models.TextField(default="")
+    consulta = models.TextField(default="")
+
+
+# Editar informacion de paciente
+# Asignar formas de llamado
+# Crear tabla Profile, para que al crearse un usuario comun, se cree un perfil. Y solo un admin puede agregar pacientes si este tiene perfil. Y desde ese perfil, puede activar llamado.
+# Aumentar datos pacientes
+# Usuario generico
+# Calcular tiempo de respuesta promedio
+# Visualizar tablas y graficos
+# Filtrar reportes por area, origen del llamado (cama o baño), fecha y hora
+# Diseño

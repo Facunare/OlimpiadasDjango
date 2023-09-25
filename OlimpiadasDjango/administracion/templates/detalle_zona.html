@@ -9,27 +9,133 @@
 </head>
 <body>
     {% block content %}
+        <div class="main">
+            <h1>{{zona.nombre_zona}}</h1>
+            <form action="{% url 'crear_paciente' zona.id %}" method="POST">
+                {% csrf_token %}
+                {{formPaciente}}
+                <button class="addButton">Agregar</button>
+            </form>
+            <div class="pacientes">
 
-        <form action="{% url 'crear_paciente' zona_id %}" method="POST">
-            {% csrf_token %}
-            <input type="text" placeholder="Nombre del paciente..." name="nombre_paciente">
-            <input type="text" placeholder="Apellido del paciente..." name="apellido_paciente">
-            <input type="numbre" placeholder="DNI del paciente..." name="DNI_paciente">
-            <input type="date" name="fecha_nac" id="">
-            <button>
-                Crear
-            </button>
-        </form>
-        {% if pacientes %}
-            {% for paciente in pacientes %}
-                <div class="paciente">
-                    <p>{{paciente.nombre_paciente}}</p>
-                </div>
-            {% endfor %}
-        {% else %}
-            <p>No hay ningun paciente en este momento</p>
-        {% endif %}
+                {% if pacientes %}
+                    {% for paciente in pacientes %}
+                        <a class="paciente">
+                            <p>{{paciente.dni_paciente}} | {{paciente.nombre_paciente}} {{paciente.apellido_paciente}} | {{paciente.zona.nombre_zona}} | {{paciente.medico_asignado.nombre_medico}}</p>
+                            <div>
+                                <button class="asignarMedico">Asignar enfermero</button>
+                                <form action="{% url "editar_paciente" paciente.id %}" method="POST">
+                                    {% csrf_token %}
+                                    <button>Editar</button>
+                                </form>
+                            </div>
+                        </a>
+                        <section class="modal">
+                            <div class="modal_container">
+                                <button href="#" class="modal_close">X</button>
+                                <h1>Asignar enfermero</h1>
+                                <form action="{% url "asignarMedico" paciente.id %}" method="POST">
+                                    {% csrf_token %}
+                                    <select name="medico_id" id="medico_id">
+                                        {% for medico in medicos %}
+                                            <option value="{{ medico.id }}">{{medico.nombre_medico}}</option>
+                                            <input type="hidden" name="medico_id" value="{{medico.id}}">
+                                        {% endfor %}
+                                    </select>
+                                    <button>Asignar</button>
+                                </form>
+                            </div>
+                        </section>
+                    {% endfor %}
+                {% else %}
+                    <p>No hay ningun paciente en este momento</p>
+                {% endif %}
+            </div>
+        </div>
+    <style>
+
+        .modal form{
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .modal form select{
+            height: 50px;
+        }
+        form input{
+            padding: 10px;
+            border: 1px solid black;
+            outline: none;
+            margin: 0;
+            display: flex;
+            width: 200px;
+        }
+
+        form .addButton{
+            width: 223px;
+            margin: 0;
+            cursor: pointer;
+            color: white;
+            padding: 10px;
+            background-color: rgb(20, 20, 129);
+        }
+
+        .main{
+            display: flex;
+            width: 100vw;
+        }
+
+        .paciente{
+            border: 1px solid black;
+            padding: 5px;
+            display: flex;
+            cursor: pointer;
+            justify-content: space-between;
+        }
+        .paciente:hover{
+            background-color: rgb(243, 243, 243);
+        }
+
+        .pacientes{
+            width: 100vw;
+        }
+
+        
+
+
+    </style>
+    <script>
+        const asignarMedico = document.querySelectorAll('.asignarMedico')
+        const editButton = document.querySelectorAll(".editButton")
+        const modalMedico = document.querySelector('.modal')
+        const modal_editar = document.querySelector(".modal_editar")
+        const modal_close = document.querySelectorAll('.modal_close')
+        editButton.forEach(button =>{
+            button.addEventListener('click', (e)=>{
+                e.preventDefault()
+                modal_editar.classList.add("modal--show")
+            })
+        })
+
+        asignarMedico.forEach(button=>{
+
+            button.addEventListener('click', (e)=>{
+              e.preventDefault()
+              modalMedico.classList.add('modal--show')
+            })
+        })
     
+        modal_close.forEach(button=>{
+
+            button.addEventListener('click', (e)=>{
+              e.preventDefault()
+              modalMedico.classList.remove('modal--show')
+              modal_editar.classList.remove("modal--show")
+        })
+        })
+    </script>
     {% endblock content %}
 
     

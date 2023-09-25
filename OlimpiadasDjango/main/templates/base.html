@@ -13,11 +13,18 @@
         <ul class="">
             {% if user.is_staff %}
             <li>
+              <a href="{% url 'home' %}">Zonas</a>
+            </li>
+            <li>
               <a href="{% url 'agregarZona' %}">Agregar zona</a>
             </li>
             <li>
-              <a href="{% url 'home' %}">Zonas</a>
+              <a href="{% url 'agregarMedico' %}">Agregar medico</a>
             </li>
+            <li>
+              <a href="{% url 'pacientes' %}">Pacientes</a>
+            </li>
+            
             {% endif %}
             
             {% if user.is_authenticated %}
@@ -26,10 +33,9 @@
             <li><a href="{% url 'signup' %}">Sign up</a></li>
             <li ><a href="{% url 'signin' %}">Sign in</a></li>
             {% endif %}
-            {% comment %} <li ><a href="{% url 'contacto' %}">CONTACT</a></li> {% endcomment %}
           </ul>
     </header>
-
+    
     {% block content %}
     {% endblock content %}
 
