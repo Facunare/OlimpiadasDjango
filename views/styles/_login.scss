@@ -1,0 +1,83 @@
+.loginBody {
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+
+  .loginBox {
+    box-shadow: 0 0 5px #000;
+    border-radius: 20px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    min-width: 400px;
+    background: white;
+
+    .titleLogin {
+      font-size: 45px;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+    .inputBox {
+      position: relative;
+      width: 100%;
+      input {
+        width: 100%;
+        border: none;
+        outline: none;
+        font-size: 20px;
+        padding: 10px;
+        outline: 2px solid black;
+        border-radius: 5px;
+      }
+      label {
+        &.labelActive {
+          font-size: 12px;
+          top: -.9rem;
+          left: 0.5rem;
+          background: white;
+          outline: 2px solid black;
+          padding: 2px;
+          border-radius: 5px;
+        }
+        outline: 2px solid transparent;
+
+        transition: .2s;
+        position: absolute;
+        font-size: 20px;
+        left: 0px;
+        padding: 10px;
+      }
+      .togglePassword{
+        position: absolute;
+        top: 0;
+        right: 10px;
+        bottom: 0;
+        width: 32px;
+        height: 100%;
+        object-fit: contain;
+       
+      }
+    }
+
+    .btnLogin {
+      background: #1561b8;
+      color: white;
+      border: none;
+      outline: none;
+      padding: 10px;
+      font-size: 20px;
+      box-shadow: 0 0 5px #236bbd;
+      transition:.2s;
+      &:hover{
+        scale: 1.05;
+        cursor: pointer;
+        &:active{
+          background: #1e589b;
+          scale: 1.04;
+        }
+      }
+    }
+  }
+}

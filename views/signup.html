@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="stylesheet" href="styles/styles.css" />
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  </head>
+  <body class="loginBody">
+    <div class="loginBox">
+      <h1 class="titleLogin">Registrarse</h1>
+      <div class="inputBox">
+        <input type="text" name="username" id="username" class="inputs" />
+        <label for="username" class="labelInput">Usuario</label>
+      </div>
+      <div class="inputBox">
+        <input type="password" id="password" class="inputs" />
+        <label for="password" class="labelInput">Contraseña</label>
+        <img src="./imgs/eye.svg" class="togglePassword" />
+      </div>
+      <div class="inputBox">
+        <input type="password" id="confirmPassword" class="inputs" />
+        <label for="confirmPassword" class="labelInput"
+          >Confirmar Contraseña</label
+        >
+        <img src="./imgs/eye.svg" class="togglePassword" />
+      </div>
+      <button class="btnLogin">Ingresar</button>
+    </div>
+    <script src="./js/login.js"></script>
+    
+  </body>
+</html>
