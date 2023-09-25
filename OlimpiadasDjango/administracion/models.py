@@ -67,7 +67,17 @@ class Reporte(models.Model):
 # Usuario generico
 # Calcular tiempo de respuesta promedio
 # Visualizar tablas y graficos
-
-# Agregar span al lado del filtro de hora que avise que tiene un margen de 5 minutos mas y menos
+# Descarga reporte PDF y CSV
 
 # Diseño
+# Mejorar el codigo, modularizarlo, etc.
+
+# Hacer aplicacion movil
+# Comentar codigo
+# Presentar todo en formato texto en un documento con titulo "Testeos, algoritmos e interacciones"
+# Presentar en el mismo documento con titulo "Planificacion y organizacion" una tabla que contenga fecha de inicio, descripción de la tarea, cantidad de días, tareas precedentes, responsable de la tarea.
+# Con titulo "Alternativas posibles" describir las alternativas evaluadas (min 2) y fundamentar porque elegimos una.
+# Con titulo "Errores y soluciones" los errores dectectados y solucion propuesta
+
+# Alojar en un servidor con acceso por usuario clave de caracter publico e incluir en la presentacion las credenciales de acceso
+# Hacer informe final e incluir bibliografia
