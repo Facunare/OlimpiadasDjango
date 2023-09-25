@@ -11,26 +11,38 @@
 <body>
     {% block content %}
     <h1>{{perfil.user.username}}</h1>
-    <form action="{% url 'llamar' perfil.id 0 %}" method="POST">
-        {% csrf_token %}
-        {% if perfil.isCalling %}
-            <button disabled>LLAMANDO</button>
-        {% else %}
-            <button>
-                LLAMAR DE EMERGENCIA
-            </button>
-        {% endif %}
-    </form>
-    <form action="{% url 'llamar' perfil.id 1 %}" method="POST">
-        {% csrf_token %}
-        {% if perfil.isCallingNormal %}
-            <button disabled>LLAMANDO</button>
-        {% else %}
-            <button>
-                LLAMAR NORMAL
-            </button>
-        {% endif %}
-    </form>
+    {% if paciente_encontrado %}
+        <form action="{% url 'llamar' perfil.id 0 %}" method="POST" {% if not paciente_encontrado %} disabled {% endif %}>
+            {% csrf_token %}
+            {% if perfil.isCalling or perfil.isCallingNormal%}
+                <button disabled>LLAMANDO</button>
+            {% else %}
+                <button>
+                    LLAMAR DE EMERGENCIA
+                </button>
+                <select name="origen" id="">
+                    <option value="baño">Baño</option>
+                    <option value="cama">Cama</option>
+                </select>
+            {% endif %}
+        </form>
+        <form action="{% url 'llamar' perfil.id 1 %}" method="POST">
+            {% csrf_token %}
+            {% if perfil.isCallingNormal or perfil.isCalling%}
+                <button disabled>LLAMANDO</button>
+            {% else %}
+                <button>
+                    LLAMAR NORMAL
+                </button>
+                <select name="origen" id="">
+                    <option value="baño">Baño</option>
+                    <option value="cama">Cama</option>
+                </select>
+            {% endif %}
+        </form>
+    {% else %}
+        No podra hacer llamados hasta no ser agregado como paciente del hospital. Por favor espere.
+    {% endif %}
     <style>
     
     </style>

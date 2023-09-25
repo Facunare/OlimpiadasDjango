@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 # Create your models here.
+from django.utils import timezone
 
 
 class Perfil(models.Model):
@@ -16,11 +17,7 @@ class Zona(models.Model):
     def __str__(self):
         return self.nombre_zona
     
-    
-class Reporte(models.Model):
-    tipo_reporte = models.CharField(max_length=10)
-    created_at = models.DateTimeField(auto_now_add=True)
-    zona = models.ForeignKey(Zona, on_delete=models.CASCADE)
+
     
 class Medico(models.Model):
     nombre_medico = models.CharField(max_length=100)
@@ -50,20 +47,27 @@ class Paciente(models.Model):
     # altura_paciente = models.IntegerField(default=0)
     # alergias = models.TextField(default="")
 
-
+class Llamado(models.Model):
+    paciente = models.ForeignKey(Paciente, default=None, on_delete=models.CASCADE)
+    zona = models.ForeignKey(Zona, default=None, on_delete=models.CASCADE)
+    origen = models.CharField(max_length=20)
+    created_at = models.DateTimeField(default=timezone.now)
+    
 
 class Reporte(models.Model):
-    tipo = models.BooleanField(default=False)
+    tipo = models.CharField(default="", max_length=100)
     consulta = models.TextField(default="")
-    # area = zdasdas
-    # origen_llamado = asjdsajdsaj
-    created_at = models.DateTimeField(auto_now_add=True)
+    zona = models.ForeignKey(Zona, on_delete=models.CASCADE, default=1)
+    llamado = models.ForeignKey(Llamado, default=None, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(default=timezone.now)
 
 
-# Editar informacion de paciente
+
 # Aumentar datos pacientes
 # Usuario generico
 # Calcular tiempo de respuesta promedio
 # Visualizar tablas y graficos
-# Filtrar reportes por area, origen del llamado (cama o baño), fecha y hora
+
+# Agregar span al lado del filtro de hora que avise que tiene un margen de 5 minutos mas y menos
+
 # Diseño

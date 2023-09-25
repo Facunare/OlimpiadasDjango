@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Zona</title>
+
+</head>
+<body>
+    {% block content %}
+    <h1>Reportes</h1>
+    <div class="filtrar">
+        <form action="{% url 'verReportes' %}" method="POST">
+            {% csrf_token %}
+            <select name="filtroZona" id="">
+                <option value="">Todas las Zonas</option>
+                {% for zona in zonas %}
+                    <option value="{{ zona.id }}">{{ zona.nombre_zona }}</option>
+                {% endfor %}
+            </select>
+            <select name="origenLlamado" id="">
+                <option value="cama">Todos los origenes</option>
+                <option value="cama">Cama</option>
+                <option value="baño">Baño</option>
+            </select>
+            <input type="date" name="fechaReporte" placeholder="Fecha del Reporte">
+            <div class="filtrarPorHora">
+                <input type="time" name="horaReporte" class="inputHora" step="60" placeholder="Hora del Reporte">
+                <label class="mensajeHora" for="horaReporte">Margen de +- 5 minutos</label>
+            </div>
+            <button type="submit" name="filtrar">Filtrar</button>
+        </form>
+    </div>
+    <div class="reportes">
+        {% if reportes %}
+          
+            {% for reporte in reportes %}
+                <div class="reporte">
+                    <p>{{reporte.llamado.paciente.nombre_paciente}} | {{reporte.llamado.zona}} | {{reporte.llamado.origen}}</p>
+                    <p>{{reporte.consulta}}</p>              
+                    <div>
+                        <p>Llamado iniciado: {{reporte.llamado.created_at}}</p>
+                        <p>Llamado terminado: {{reporte.created_at}}</p>
+                    </div>
+                </div>        
+            {% endfor %}
+        {% else %}
+                <p>No se ha encontrado ningun reporte</p>
+        {% endif %}
+
+    </div>    
+
+
+
+    <style>
+        .mensajeHora {
+            display: none;
+            position: absolute;
+            background-color: #fff;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+            transform: translateY(-30px);
+            transition: opacity 0.3s, transform 0.3s;
+        }
+        
+        .inputHora:focus + .mensajeHora {
+            display: block;
+            opacity: 1;
+        }
+
+        .filtrarPorHora{
+            display: flex;
+        }
+
+        .reportes{
+            display: flex;
+            flex-direction: column;
+        }
+
+        .reporte{
+            display: flex;
+            border: 1px solid black;
+            height: 50px;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+        }
+
+        h1{
+            text-align: center;
+            margin: 30px;
+        }
+        .filtrar form{
+            display: flex;
+            gap: 5px;
+        }
+    </style>
+    {% endblock content %}
+
+    
+</body>
+</html>

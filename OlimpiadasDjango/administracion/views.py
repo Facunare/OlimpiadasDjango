@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
-from .models import Zona, Paciente, Medico, Perfil, Reporte
+from .models import Zona, Paciente, Medico, Perfil, Reporte, Llamado
 from .forms import MedicoForm, PacienteForm
+from datetime import datetime, time, timedelta
 # Create your views here.
 
 def agregarZona(req):
@@ -72,44 +73,63 @@ def asignarMedico(request, id):
             paciente.save()
     return redirect("/")
 
-# def editar_paciente(request, paciente_id):
-#     paciente = Paciente.objects.get(id=paciente_id)
 
-#     if request.method == 'POST':
-#         form = PacienteForm(request.POST, instance=paciente)
-
-#     return render(request, 'detalle_zona.html', {'formPaciente': form})
-
+def editar_paciente(req, paciente_id):
+    paciente = Paciente.objects.get(id=paciente_id)
+    
+    if req.method == 'POST':
+        form = PacienteForm(req.POST, instance=paciente)
+        if form.is_valid():
+            form.save()  
+            return redirect('/') 
+    else:
+        form = PacienteForm(instance=paciente)
+    
+    return render(req, 'editar_pacientes.html', {'form': form})
 
 def verPerfil(req):
     perfil = Perfil.objects.get(user=req.user)
+
+    try:
+        paciente = Paciente.objects.get(perfil=perfil)
+        paciente_encontrado = True
+    except Paciente.DoesNotExist:
+        paciente = None
+        paciente_encontrado = False
+
     return render(req, 'perfil.html', {
-        'perfil':perfil
+        'perfil':perfil,
+        'paciente_encontrado': paciente_encontrado
     })
 
 def llamar(req, id, type):
-    perfil = Perfil.objects.get(id=id)
+    paciente = Paciente.objects.get(perfil_id=id)
     if(type==0):
-        perfil.isCalling = True
+        paciente.perfil.isCalling = True
     else:
-        perfil.isCallingNormal = True
-        
-    perfil.save()
+        paciente.perfil.isCallingNormal = True
+    
+    print(req.POST['origen'])
+    nuevo_llamado = Llamado(paciente = paciente, zona = paciente.zona, origen = req.POST['origen'])
+    nuevo_llamado.save()
+    paciente.perfil.save()
     return render(req, 'perfil.html', {
-        'perfil':perfil
+        'perfil':paciente.perfil
     })
 
 
 def generarReporte(req, id):
     paciente = Paciente.objects.get(id=id)
-
+    ultimo_llamado = Llamado.objects.filter(paciente = paciente).latest('created_at')
+    if(paciente.perfil.isCalling):
+        tipo = 'Emergencia'
+    else:
+        tipo = 'Normal'
     if req.method == "POST":
     
-        nuevo_reporte = Reporte(tipo=False, consulta = req.POST['consulta'])
+        nuevo_reporte = Reporte(tipo=tipo, consulta = req.POST['consulta'], zona = paciente.zona, llamado = ultimo_llamado)
         nuevo_reporte.save()
-        print(paciente)
-        print(paciente.perfil.isCalling)
-        print(paciente.perfil.isCallingNormal)
+
         paciente.perfil.isCalling = False
         paciente.perfil.isCallingNormal = False
         paciente.perfil.save()
@@ -119,3 +139,39 @@ def generarReporte(req, id):
             'paciente':paciente
         })
 
+
+def verReportes(req):
+    zonas = Zona.objects.all()
+    reportes = Reporte.objects.all()
+    
+    if req.method == "POST":
+        zona_id = req.POST.get('filtroZona')
+        origen_llamado = req.POST.get('origenLlamado')
+        fecha_reporte = req.POST.get('fechaReporte')
+        hora_reporte = req.POST.get('horaReporte')
+        
+        filtros = {}
+        
+        if zona_id:
+            filtros['llamado__zona_id'] = zona_id
+        
+        if origen_llamado != 'todos':
+            filtros['llamado__origen__icontains'] = origen_llamado
+        
+        if fecha_reporte:
+            fecha_reporte = datetime.strptime(fecha_reporte, '%Y-%m-%d').date()
+            filtros['created_at__date'] = fecha_reporte
+        
+        if hora_reporte:
+            hora_reporte = datetime.strptime(hora_reporte, '%H:%M').time()
+            rango_inicio = (datetime.combine(datetime.today(), hora_reporte) - timedelta(minutes=5)).time()
+            rango_fin = (datetime.combine(datetime.today(), hora_reporte) + timedelta(minutes=5)).time()
+            filtros['created_at__time__gte'] = rango_inicio
+            filtros['created_at__time__lte'] = rango_fin
+        
+        reportes = Reporte.objects.filter(**filtros)
+    
+    return render(req, 'reportes.html', {
+        'reportes': reportes,
+        'zonas': zonas
+    })
