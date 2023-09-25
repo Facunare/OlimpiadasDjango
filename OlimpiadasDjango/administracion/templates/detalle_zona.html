@@ -20,20 +20,20 @@
 
                 {% if pacientes %}
                     {% for paciente in pacientes %}
-                        <a class="paciente {% if paciente.perfil.isCalling %} pacienteLlamando {% endif %}">
+                        <a class="paciente {% if paciente.perfil.isCalling %} pacienteLlamando {% elif paciente.perfil.isCallingNormal%} pacienteLlamandoNormal {% endif %}">
                             <p>{{paciente.dni_paciente}} | {{paciente.nombre_paciente}} {{paciente.apellido_paciente}} | {{paciente.zona.nombre_zona}} | {{paciente.medico_asignado.nombre_medico}}</p>
                             <div class="buttons">
 
                                 <div>
                                     <button class="asignarMedico">Asignar enfermero</button>
                                 </div>
-                                {% if paciente.perfil.isCalling %} 
-                                    <form action="">
+                                {% if paciente.perfil.isCalling or paciente.perfil.isCallingNormal %} 
+                                    <form action="{% url 'generarReporte' paciente.id %}">
                                         <button>
                                             Generar reporte
                                         </button>
                                     </form>
-                                {% endif %}"
+                                {% endif %}
                             </div>
                         </a>
                         <section class="modal">
@@ -62,12 +62,16 @@
 
         .buttons{
             display: flex;
+            gap: 20px;
         }
 
         .pacienteLlamando{
             background: red;
         }
 
+        .pacienteLlamandoNormal{
+            background: orange;
+        }
         .modal form{
             display: flex;
             flex-direction: column;

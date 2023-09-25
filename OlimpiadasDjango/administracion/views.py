@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Zona, Paciente, Medico, Perfil
+from .models import Zona, Paciente, Medico, Perfil, Reporte
 from .forms import MedicoForm, PacienteForm
 # Create your views here.
 
@@ -87,10 +87,35 @@ def verPerfil(req):
         'perfil':perfil
     })
 
-def llamar(req, id):
+def llamar(req, id, type):
     perfil = Perfil.objects.get(id=id)
-    perfil.isCalling = True
+    if(type==0):
+        perfil.isCalling = True
+    else:
+        perfil.isCallingNormal = True
+        
     perfil.save()
     return render(req, 'perfil.html', {
         'perfil':perfil
     })
+
+
+def generarReporte(req, id):
+    paciente = Paciente.objects.get(id=id)
+
+    if req.method == "POST":
+    
+        nuevo_reporte = Reporte(tipo=False, consulta = req.POST['consulta'])
+        nuevo_reporte.save()
+        print(paciente)
+        print(paciente.perfil.isCalling)
+        print(paciente.perfil.isCallingNormal)
+        paciente.perfil.isCalling = False
+        paciente.perfil.isCallingNormal = False
+        paciente.perfil.save()
+        return redirect('/')
+    else:
+        return render(req, 'generarReporte.html', {
+            'paciente':paciente
+        })
+

@@ -11,13 +11,23 @@
 <body>
     {% block content %}
     <h1>{{perfil.user.username}}</h1>
-    <form action="{% url 'llamar' perfil.id %}" method="POST">
+    <form action="{% url 'llamar' perfil.id 0 %}" method="POST">
         {% csrf_token %}
         {% if perfil.isCalling %}
             <button disabled>LLAMANDO</button>
         {% else %}
             <button>
-                LLAMAR
+                LLAMAR DE EMERGENCIA
+            </button>
+        {% endif %}
+    </form>
+    <form action="{% url 'llamar' perfil.id 1 %}" method="POST">
+        {% csrf_token %}
+        {% if perfil.isCallingNormal %}
+            <button disabled>LLAMANDO</button>
+        {% else %}
+            <button>
+                LLAMAR NORMAL
             </button>
         {% endif %}
     </form>

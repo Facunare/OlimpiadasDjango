@@ -10,5 +10,6 @@ urlpatterns = [
     path('asignarMedico/<int:id>', views.asignarMedico, name="asignarMedico"),
     # path('editar_paciente/<int:paciente_id>', views, name="editar_paciente")
     path('perfil/', views.verPerfil, name="perfil"),
-    path('llamar/<int:id>', views.llamar, name="llamar"),
+    path('llamar/<int:id>/<int:type>', views.llamar, name="llamar"),
+    path('generarReporte/<int:id>', views.generarReporte, name="generarReporte"),
 ]

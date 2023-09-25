@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 class Perfil(models.Model):
     user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
     isCalling = models.BooleanField(default=False)
+    isCallingNormal = models.BooleanField(default=False)
     def __str__(self):
         return self.user.username
 
@@ -51,19 +52,18 @@ class Paciente(models.Model):
 
 
 
-# class Llamados(models.Model):
-    # tipo = models.BooleanField(default=False)
-    # consulta = models.TextField(default="")
-
+class Reporte(models.Model):
+    tipo = models.BooleanField(default=False)
+    consulta = models.TextField(default="")
+    # area = zdasdas
+    # origen_llamado = asjdsajdsaj
+    created_at = models.DateTimeField(auto_now_add=True)
 
 
 # Editar informacion de paciente
-# Asignar formas de llamado
-# Crear tabla Profile, para que al crearse un usuario comun, se cree un perfil. Y solo un admin puede agregar pacientes si este tiene perfil. Y desde ese perfil, puede activar llamado.
 # Aumentar datos pacientes
 # Usuario generico
 # Calcular tiempo de respuesta promedio
 # Visualizar tablas y graficos
-# Crear reporte cuando termine la consulta
 # Filtrar reportes por area, origen del llamado (cama o baño), fecha y hora
 # Diseño
