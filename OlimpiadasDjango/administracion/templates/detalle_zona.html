@@ -10,12 +10,17 @@
 <body>
     {% block content %}
         <div class="main">
-            <h1>{{zona.nombre_zona}}</h1>
+
             <form action="{% url 'crear_paciente' zona.id %}" method="POST">
-                {% csrf_token %}
-                {{formPaciente}}
-                <button class="addButton">Agregar</button>
-            </form>
+            {% csrf_token %}
+            <input type="text" placeholder="Nombre del paciente..." name="nombre_paciente">
+            <input type="text" placeholder="Apellido del paciente..." name="apellido_paciente">
+            <input type="numbre" placeholder="DNI del paciente..." name="DNI_paciente">
+            <input type="date" name="fecha_nac" id="">
+            <button>
+                Crear
+            </button>
+        </form>
             <div class="pacientes">
 
                 {% if pacientes %}
@@ -24,10 +29,10 @@
                             <p>{{paciente.dni_paciente}} | {{paciente.nombre_paciente}} {{paciente.apellido_paciente}} | {{paciente.zona.nombre_zona}} | {{paciente.medico_asignado.nombre_medico}}</p>
                             <div>
                                 <button class="asignarMedico">Asignar enfermero</button>
-                                <form action="{% url "editar_paciente" paciente.id %}" method="POST">
+                                {% comment %} <form action="{% url "editar_paciente" paciente.id %}" method="POST">
                                     {% csrf_token %}
                                     <button>Editar</button>
-                                </form>
+                                </form> {% endcomment %}
                             </div>
                         </a>
                         <section class="modal">
