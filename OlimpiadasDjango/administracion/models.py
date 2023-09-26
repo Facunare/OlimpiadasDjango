@@ -1,8 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
-# Create your models here.
 from django.utils import timezone
 
+# Tabla Perfil
 
 class Perfil(models.Model):
     user = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
@@ -11,13 +11,15 @@ class Perfil(models.Model):
     def __str__(self):
         return self.user.username
 
+# Tabla Zona
+
 class Zona(models.Model):
     nombre_zona = models.CharField(max_length=50)
     cant_pacientes = models.IntegerField()
     def __str__(self):
         return self.nombre_zona
     
-
+# Tabla Medico
     
 class Medico(models.Model):
     nombre_medico = models.CharField(max_length=100)
@@ -29,6 +31,8 @@ class Medico(models.Model):
     def __str__(self):
         return self.nombre_medico
     
+# Tabla Paciente
+
 class Paciente(models.Model):
     nombre_paciente = models.CharField(max_length=100)
     apellido_paciente = models.CharField(max_length=100)
@@ -47,12 +51,15 @@ class Paciente(models.Model):
     # altura_paciente = models.IntegerField(default=0)
     # alergias = models.TextField(default="")
 
+# Tabla Llamado
+
 class Llamado(models.Model):
     paciente = models.ForeignKey(Paciente, default=None, on_delete=models.CASCADE)
     zona = models.ForeignKey(Zona, default=None, on_delete=models.CASCADE)
     origen = models.CharField(max_length=20)
     created_at = models.DateTimeField(default=timezone.now)
     
+# Tabla Reporte
 
 class Reporte(models.Model):
     tipo = models.CharField(default="", max_length=100)
@@ -60,24 +67,3 @@ class Reporte(models.Model):
     zona = models.ForeignKey(Zona, on_delete=models.CASCADE, default=1)
     llamado = models.ForeignKey(Llamado, default=None, on_delete=models.CASCADE)
     created_at = models.DateTimeField(default=timezone.now)
-
-
-
-# Aumentar datos pacientes
-# Usuario generico
-# Calcular tiempo de respuesta promedio
-# Visualizar tablas y graficos
-# Descarga reporte PDF y CSV
-
-# Diseño
-# Mejorar el codigo, modularizarlo, etc.
-
-# Hacer aplicacion movil
-# Comentar codigo
-# Presentar todo en formato texto en un documento con titulo "Testeos, algoritmos e interacciones"
-# Presentar en el mismo documento con titulo "Planificacion y organizacion" una tabla que contenga fecha de inicio, descripción de la tarea, cantidad de días, tareas precedentes, responsable de la tarea.
-# Con titulo "Alternativas posibles" describir las alternativas evaluadas (min 2) y fundamentar porque elegimos una.
-# Con titulo "Errores y soluciones" los errores dectectados y solucion propuesta
-
-# Alojar en un servidor con acceso por usuario clave de caracter publico e incluir en la presentacion las credenciales de acceso
-# Hacer informe final e incluir bibliografia
