@@ -26,5 +26,13 @@ class PacienteForm(forms.ModelForm):
             'apellido_paciente',
             'fecha_nac_paciente',
             'dni_paciente',
-            'perfil'
+            'perfil',
+            'domicilio_paciente',
+            'genero_paciente',
+            'telefono_paciente',
+            'email_paciente',
+            'grupo_sanguineo',
+            'peso_paciente_kg',
+            'altura_paciente',
+            'alergias'
         ]

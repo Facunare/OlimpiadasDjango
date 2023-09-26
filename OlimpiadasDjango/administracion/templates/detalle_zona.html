@@ -11,11 +11,16 @@
     {% block content %}
         <div class="main">
 
-            <form action="{% url 'crear_paciente' zona.id %}" method="POST">
-            {% csrf_token %}
-            {{formPaciente}}
-            <button>Crear</button>
-        </form>
+            
+
+            <form action="{% url 'agregarPaciente' %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="zona_id" value="{{zona.id}}">
+                <button>
+                    Agregar paciente
+                </button>
+            </form>
+
             <div class="pacientes">
 
                 {% if pacientes %}
