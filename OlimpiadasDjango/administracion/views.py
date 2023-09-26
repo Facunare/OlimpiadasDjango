@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect
 from .models import Zona, Paciente, Medico, Perfil, Reporte, Llamado
 from .forms import MedicoForm, PacienteForm
 from datetime import datetime, time, timedelta
-# Create your views here.
+
+# Vista agregar zona
 
 def agregarZona(req):
     if req.method == 'POST':
@@ -15,6 +16,8 @@ def agregarZona(req):
     else:
         return render(req, 'agregarZona.html')
     
+# Vista agregar medico
+
 def agregarMedico(req):
     
     if req.method == 'POST':
@@ -30,6 +33,8 @@ def agregarMedico(req):
         return render(req, 'agregarEnfermero.html',{
             "form": MedicoForm
         })
+    
+# Vista Detalle de zona
 
 def detalle_zona(req, id):
     medicos = Medico.objects.all().filter(zona = id)
@@ -42,6 +47,8 @@ def detalle_zona(req, id):
         "formPaciente": PacienteForm
         
     })
+
+# Vista crear paciente
     
 def crear_paciente(req, zona_id):
     zona_id = Zona.objects.get(id=zona_id)
@@ -54,6 +61,7 @@ def crear_paciente(req, zona_id):
         nuevo_paciente.save()
     return redirect('/')
     
+# Vista lista de pacientes
 
 def pacientes(req):
     
@@ -73,6 +81,7 @@ def asignarMedico(request, id):
             paciente.save()
     return redirect("/")
 
+# Vista editar paciente
 
 def editar_paciente(req, paciente_id):
     paciente = Paciente.objects.get(id=paciente_id)
@@ -86,6 +95,8 @@ def editar_paciente(req, paciente_id):
         form = PacienteForm(instance=paciente)
     
     return render(req, 'editar_pacientes.html', {'form': form})
+
+# Vista ver perfil
 
 def verPerfil(req):
     perfil = Perfil.objects.get(user=req.user)
@@ -102,6 +113,8 @@ def verPerfil(req):
         'paciente_encontrado': paciente_encontrado
     })
 
+# Vista llamar
+
 def llamar(req, id, type):
     paciente = Paciente.objects.get(perfil_id=id)
     if(type==0):
@@ -117,6 +130,7 @@ def llamar(req, id, type):
         'perfil':paciente.perfil
     })
 
+# Vista generar reporte
 
 def generarReporte(req, id):
     paciente = Paciente.objects.get(id=id)
@@ -138,6 +152,7 @@ def generarReporte(req, id):
         return render(req, 'generarReporte.html', {
             'paciente':paciente
         })
+
 
 
 def verReportes(req):
