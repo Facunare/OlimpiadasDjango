@@ -3,7 +3,7 @@ from .models import Zona, Paciente, Medico, Perfil, Reporte, Llamado
 from .forms import MedicoForm, PacienteForm
 from datetime import datetime, time, timedelta
 
-# Vista agregar zona
+# Vista Agregar zona
 
 def agregarZona(req):
     if req.method == 'POST':
@@ -16,7 +16,7 @@ def agregarZona(req):
     else:
         return render(req, 'agregarZona.html')
     
-# Vista agregar medico
+# Vista Agregar medico
 
 def agregarMedico(req):
     
@@ -48,7 +48,7 @@ def detalle_zona(req, id):
         
     })
 
-# Vista crear paciente
+# Vista Crear paciente
     
 def crear_paciente(req, zona_id):
     zona_id = Zona.objects.get(id=zona_id)
@@ -61,7 +61,7 @@ def crear_paciente(req, zona_id):
         nuevo_paciente.save()
     return redirect('/')
     
-# Vista lista de pacientes
+# Vista Lista de pacientes
 
 def pacientes(req):
     
@@ -69,7 +69,9 @@ def pacientes(req):
     return render(req, 'listaPacientes.html',{
         "pacientes":pacientes,
     })
-    
+
+# Vista Asignar medico
+
 def asignarMedico(request, id):
     if request.method == "POST":
         paciente = Paciente.objects.get(id=id)
@@ -96,7 +98,7 @@ def editar_paciente(req, paciente_id):
     
     return render(req, 'editar_pacientes.html', {'form': form})
 
-# Vista ver perfil
+# Vista Ver perfil
 
 def verPerfil(req):
     perfil = Perfil.objects.get(user=req.user)
@@ -113,7 +115,7 @@ def verPerfil(req):
         'paciente_encontrado': paciente_encontrado
     })
 
-# Vista llamar
+# Vista Llamar
 
 def llamar(req, id, type):
     paciente = Paciente.objects.get(perfil_id=id)
@@ -130,7 +132,7 @@ def llamar(req, id, type):
         'perfil':paciente.perfil
     })
 
-# Vista generar reporte
+# Vista Generar reporte
 
 def generarReporte(req, id):
     paciente = Paciente.objects.get(id=id)
@@ -153,7 +155,7 @@ def generarReporte(req, id):
             'paciente':paciente
         })
 
-
+# Vista Ver reportes
 
 def verReportes(req):
     zonas = Zona.objects.all()

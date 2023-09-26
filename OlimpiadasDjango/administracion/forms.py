@@ -15,8 +15,7 @@ class MedicoForm(forms.ModelForm):
             'domicilio_medico',
             'zona',
         ]
-
-
+        
 # Formulario para la creacion de un Paciente
 
 class PacienteForm(forms.ModelForm):

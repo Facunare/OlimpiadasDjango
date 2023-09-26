@@ -5,7 +5,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
 from administracion import models
-# Create your views here.
+
+# Vista SignUp
 
 def signup(request):
     if request.method == 'GET':
@@ -32,11 +33,14 @@ def signup(request):
                 'error': 'Las contraseñas no coinciden'
             })
 
+# Vista si el usuario esta logeado.
+
 @login_required
 def signout(request):
     logout(request)
     return redirect('/')
 
+# Vista SignIn
 
 def signin(request):
     if request.method == 'GET':

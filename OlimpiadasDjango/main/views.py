@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from administracion import models
-# Create your views here.
+
+# Vista Pagina principal
 
 def home(request):
     zonas = models.Zona.objects.all()
