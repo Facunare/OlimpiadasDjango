@@ -1,10 +1,17 @@
+import csv
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from .models import Zona, Paciente, Medico, Perfil, Reporte, Llamado
 from .forms import MedicoForm, PacienteForm
 from datetime import datetime, time, timedelta
+<<<<<<< HEAD
+
+# Vista Agregar zona
+=======
 import csv
 from django.http import HttpResponse
 import json
+>>>>>>> f7309f055de9bea0464e18778ea231af492d0b30
 
 def agregarZona(req):
     if req.method == 'POST':
@@ -17,6 +24,8 @@ def agregarZona(req):
     else:
         return render(req, 'agregarZona.html')
     
+# Vista Agregar medico
+
 def agregarMedico(req):
     
     if req.method == 'POST':
@@ -34,6 +43,8 @@ def agregarMedico(req):
         return render(req, 'agregarEnfermero.html',{
             "form": MedicoForm
         })
+    
+# Vista Detalle de zona
 
 def detalle_zona(req, id):
     medicos = Medico.objects.all().filter(zona = id)
@@ -46,6 +57,8 @@ def detalle_zona(req, id):
         "formPaciente": PacienteForm
         
     })
+
+# Vista Crear paciente
     
 def crear_paciente(req, zona_id):
     zona_id = Zona.objects.get(id=zona_id)
@@ -68,6 +81,7 @@ def crear_paciente(req, zona_id):
         nuevo_paciente.save()
     return redirect('/')
     
+# Vista Lista de pacientes
 
 def pacientes(req):
     
@@ -75,7 +89,9 @@ def pacientes(req):
     return render(req, 'listaPacientes.html',{
         "pacientes":pacientes,
     })
-    
+
+# Vista Asignar medico
+
 def asignarMedico(request, id):
     if request.method == "POST":
         paciente = Paciente.objects.get(id=id)
@@ -87,6 +103,7 @@ def asignarMedico(request, id):
             paciente.save()
     return redirect("/")
 
+# Vista editar paciente
 
 def editar_paciente(req, paciente_id):
     paciente = Paciente.objects.get(id=paciente_id)
@@ -100,6 +117,8 @@ def editar_paciente(req, paciente_id):
         form = PacienteForm(instance=paciente)
     
     return render(req, 'editar_pacientes.html', {'form': form})
+
+# Vista Ver perfil
 
 def verPerfil(req):
     perfil = Perfil.objects.get(user=req.user)
@@ -116,6 +135,8 @@ def verPerfil(req):
         'paciente_encontrado': paciente_encontrado
     })
 
+# Vista Llamar
+
 def llamar(req, id, type):
     paciente = Paciente.objects.get(perfil_id=id)
     if(type==0):
@@ -131,6 +152,7 @@ def llamar(req, id, type):
         'perfil':paciente.perfil
     })
 
+# Vista Generar reporte
 
 def generarReporte(req, id):
     paciente = Paciente.objects.get(id=id)
@@ -153,6 +175,7 @@ def generarReporte(req, id):
             'paciente':paciente
         })
 
+# Vista Ver reportes
 
 def verReportes(req):
     zonas = Zona.objects.all()
@@ -199,6 +222,9 @@ def verReportes(req):
     
     return render(req, 'reportes.html', {
         'reportes': reportes,
+<<<<<<< HEAD
+        'zonas': zonas
+=======
         'zonas': zonas,
         'tiempo_promedio':tiempo_promedio,
         'zonaReporte':list(zonas)
@@ -209,6 +235,7 @@ def agregarPaciente(req):
     return render(req, 'agregarPaciente.html',{
         'id': req.POST['zona_id'],
         "formPaciente": PacienteForm
+>>>>>>> f7309f055de9bea0464e18778ea231af492d0b30
     })
 
 def exportarReporte(req):
@@ -228,14 +255,30 @@ def exportarReporte(req):
     return response
 
 def exportarIdReporte(req, id):
+<<<<<<< HEAD
+    reportes = Reporte.objects.get(id=id)
+=======
     reportes = Reporte.objects.values_list('tipo', 'consulta', 'zona', 'llamado', 'created_at').get(id=id)
+>>>>>>> f7309f055de9bea0464e18778ea231af492d0b30
     response = HttpResponse(content_type = 'text/csv')
     response['Content-Disposition'] = 'attachment; filename=reportes.csv' 
     writer = csv.writer(response)
 
     writer.writerow(['Tipo', 'Consulta', 'Zona', 'Llamado', 'Hora Reporte'])
 
+<<<<<<< HEAD
+    reportes_fields = reportes.values_list('tipo', 'consulta', 'zona', 'llamado', 'created_at')
+
+
+    for reporte in reportes_fields:
+        writer.writerow(reporte)
+    
+    return response
+
+
+=======
     writer.writerow(reportes)
     
     return response
 
+>>>>>>> f7309f055de9bea0464e18778ea231af492d0b30

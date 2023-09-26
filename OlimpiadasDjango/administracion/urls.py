@@ -13,8 +13,13 @@ urlpatterns = [
     path('generarReporte/<int:id>', views.generarReporte, name="generarReporte"),
     path('editar_paciente/<int:paciente_id>/', views.editar_paciente, name='editar_paciente'),
     path('verReportes/', views.verReportes, name='verReportes'),
+<<<<<<< HEAD
+    path('exportarReportes/', views.exportarReporte, name='exportarReportes'),
+    path('exportarIdReportes/<int:reportes_id>', views.exportarIdReporte, name='exportarIdReportes'),
+=======
     path('agregarPaciente/', views.agregarPaciente, name='agregarPaciente'),
     path('exportarReportes/', views.exportarReporte, name='exportarReportes'),
     path('exportarIdReportes/<int:id>', views.exportarIdReporte, name='exportarIdReportes'),
+>>>>>>> f7309f055de9bea0464e18778ea231af492d0b30
      
 ]

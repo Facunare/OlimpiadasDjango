@@ -43,11 +43,16 @@
                     <div>
                         <p>Llamado iniciado: {{reporte.llamado.created_at}}</p>
                         <p>Llamado terminado: {{reporte.created_at}}</p>
+                        <a href="{% url 'exportarIdReportes' reportes.id %}"><button>Exportar reporte</button></a>
                     </div>
                     <a href="{% url 'exportarIdReportes' reporte.id %}"><button>Exportar Reportes</button></a>
                 </div>        
             {% endfor %}
+<<<<<<< HEAD
+            <a href="{% url 'exportarReportes' %}"><button>Exportar Reportes</button></a>
+=======
             <p>Tiempo promedio de atencion: {{tiempo_promedio}} minutos</p>
+>>>>>>> f7309f055de9bea0464e18778ea231af492d0b30
         {% else %}
                 <p>No se ha encontrado ningun reporte</p>
         {% endif %}
