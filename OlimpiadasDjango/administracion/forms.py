@@ -1,6 +1,9 @@
 from django import forms
 from .models import Medico, Paciente
 
+
+# Formulario para la creacion de un medico
+
 class MedicoForm(forms.ModelForm):
     class Meta:
         model = Medico
@@ -12,7 +15,10 @@ class MedicoForm(forms.ModelForm):
             'domicilio_medico',
             'zona',
         ]
-        
+
+
+# Formulario para la creacion de un Paciente
+
 class PacienteForm(forms.ModelForm):
     class Meta:
         model = Paciente
