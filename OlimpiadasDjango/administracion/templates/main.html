@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+<body class="Body_Main">
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="../img/galeno-logo.jpg" alt="">
+                <h1>Nombre Del Hospital</h1>
+            </div>
+            <div class="opciones">
+                <ul>
+                    <li><a href="">Inicio</a></li>
+                    <li><a href="">Nosotros</a></li>
+                    <li><a href="">Espcialidades</a></li>
+                    <li><a href="">Establecimientos</a></li>
+                    <li><a href="">Profesionales</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div class="presentacion">
+            <img src="../img/Hospital_Británico_Central_(fachada).jpg" alt="">
+            <div class="texto">
+                <h1>Nombre del Hospital</h1>
+            <p>
+            </p>
+            </div>
+        </div>
+        <div class="sliders">
+            <div id="slid1" class="slid">
+                <ul>
+                    <li>
+                        <div class="informacion">
+                            <h2>Gastroenterología</h2>
+                            <p></p>
+                        </div>
+                        <a href=""><img src="../img/Hospital_Británico_Central_(fachada).jpg" alt=""></a>
+                    </li>
+                    <li>
+                        <div class="informacion">
+                            <h2>Infectología</h2>
+                            <p></p>
+                        </div>
+                        <a href=""><img src="../img/Hospital_Británico_Central_(fachada).jpg" alt=""></a>
+                    </li>
+                    <li>
+                        <div class="informacion">
+                            <h2>Maternidad</h2>
+                            <p></p>
+                        </div>
+                        <a href=""><img src="../img/Hospital_Británico_Central_(fachada).jpg" alt=""></a>
+                    </li>
+                </ul>
+            </div>
+            <div id="slid2" class="slid">
+                <ul>
+                    <li>
+                        <div class="informacion">
+                            <h2>Odontología</h2>
+                            <p></p>
+                        </div>
+                        <a href=""><img src="../img/Hospital_Británico_Central_(fachada).jpg" alt=""></a>
+                    </li>
+                    <li>
+                        <div class="informacion">
+                            <h2>Oncología</h2>
+                            <p></p>
+                        </div>
+                        <a href=""><img src="../img/Hospital_Británico_Central_(fachada).jpg" alt=""></a>
+                    </li>
+                    <li>
+                        <div class="informacion">
+                            <h2>Oftalmología</h2>
+                            <p></p>
+                        </div>
+                        <a href=""><img src="../img/Hospital_Británico_Central_(fachada).jpg" alt=""></a>
+                    </li>
+                </ul>
+            </div>
+            <div id="slid3" class="slid">
+                <ul>
+                    <li>
+                        <div class="informacion">
+                            <h2>Quemados</h2>
+                            <p></p>
+                        </div>
+                        <a href=""><img src="../img/Hospital_Británico_Central_(fachada).jpg" alt=""></a>
+                    </li>
+                    <li>
+                        <div class="informacion">
+                            <h2>Algo</h2>
+                            <p></p>
+                        </div>
+                        <a href=""><img src="../img/Hospital_Británico_Central_(fachada).jpg" alt=""></a>
+                    </li>
+                    <li>
+                        <div class="informacion">
+                            <h2>Algo</h2>
+                            <p></p>
+                        </div>
+                        <a href=""><img src="../img/Hospital_Británico_Central_(fachada).jpg" alt=""></a>
+                    </li>
+                </ul>
+            </div>
+            <div id="slid4" class="slid">
+                <ul>
+                    <li>
+                        <div class="informacion">
+                            <h2>Algo</h2>
+                            <p></p>
+                        </div>
+                        <a href=""><img src="../img/Hospital_Británico_Central_(fachada).jpg" alt=""></a>
+                    </li>
+                    <li>
+                        <div class="informacion">
+                            <h2>Algo</h2>
+                            <p></p>
+                        </div>
+                        <a href=""><img src="../img/Hospital_Británico_Central_(fachada).jpg" alt=""></a>
+                    </li>
+                    <li>
+                        <div class="informacion">
+                            <h2>Algo</h2>
+                            <p></p>
+                        </div>
+                        <a href=""><img src="../img/Hospital_Británico_Central_(fachada).jpg" alt=""></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </main>
+    <footer>
+
+    </footer>
+    <style>
+        .formulario {
+  height: 100%;
+  width: 100%;
+  margin: 0 auto;
+}
+.formulario form {
+  height: 100%;
+  width: 100%;
+  margin: 0 auto;
+  border: 1px solid blue;
+}
+.formulario form label {
+  color: blue;
+  display: block;
+}
+.formulario form input {
+  color: blue;
+}
+.formulario form select {
+  color: blue;
+}
+.formulario form select option {
+  color: blue;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.Body_Main {
+  display: grid;
+  grid-template-rows: 5% 88% 7%;
+  grid-template-areas: "header1" "main" "footer";
+}
+.Body_Main header {
+  grid-area: header1;
+  height: 100%;
+  width: 100%;
+}
+.Body_Main header nav {
+  display: grid;
+  height: 100%;
+  width: 100%;
+  grid-template-columns: 40% 60%;
+  grid-template-areas: "logo opciones";
+}
+.Body_Main header nav .logo {
+  grid-area: logo;
+  display: grid;
+  grid-template-columns: 40% 60%;
+}
+.Body_Main header nav .logo img {
+  height: 100%;
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.Body_Main header nav .logo h1 {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: blue;
+}
+.Body_Main header nav .opciones {
+  grid-area: opciones;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+.Body_Main header nav .opciones ul {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(5, 20%);
+  grid-template-areas: "1 2 3 4 5";
+}
+.Body_Main header nav .opciones ul li {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all;
+}
+.Body_Main header nav .opciones ul li a {
+  text-decoration: none;
+  color: blue;
+}
+@media (hover: hover) {
+  .Body_Main header nav .opciones ul li a:hover {
+    padding: 15%;
+    background-color: blue;
+    transition: 0.6s;
+    color: white;
+  }
+}
+.Body_Main main {
+  grid-area: main;
+  display: grid;
+  grid-template-rows: 30% 70%;
+  grid-template-areas: "presentacion" "sliders";
+}
+.Body_Main main .presentacion {
+  grid-area: presentacion;
+  display: grid;
+  grid-template-rows: 80% 20%;
+  grid-template-areas: "imagen" "datos";
+}
+.Body_Main main .presentacion img {
+  grid-area: imagen;
+  height: 100%;
+  width: 100%;
+  -o-object-fit: fill;
+     object-fit: fill;
+}
+.Body_Main main .presentacion .texto {
+  grid-area: datos;
+  margin: auto;
+}
+.Body_Main .sliders {
+  grid-area: sliders;
+  height: 100%;
+  width: 100%;
+}
+.Body_Main .sliders .slid {
+  margin: auto;
+  overflow: hidden;
+}
+.Body_Main .sliders .slid ul {
+  padding: 0;
+  display: flex;
+  width: 300%;
+  height: 100%;
+}
+.Body_Main .sliders .slid ul li {
+  list-style: none;
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-areas: "uno dos";
+}
+.Body_Main .sliders .slid ul li .informacion {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.Body_Main .sliders .slid ul li a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.Body_Main .sliders #slid1 {
+  margin: auto;
+  overflow: hidden;
+}
+.Body_Main .sliders #slid1 ul {
+  -webkit-animation: cambio 20s infinite;
+          animation: cambio 20s infinite;
+  -webkit-animation-direction: alternate;
+          animation-direction: alternate;
+}
+.Body_Main .sliders #slid1 ul li .informacion {
+  grid-area: dos;
+}
+.Body_Main .sliders #slid1 ul li a {
+  grid-area: uno;
+  height: 100%;
+  width: 100%;
+}
+.Body_Main .sliders #slid1 ul li a img {
+  display: flex;
+  justify-content: center;
+  height: 80%;
+  width: 80%;
+  border-radius: 50%;
+}
+.Body_Main .sliders #slid2 {
+  margin: auto;
+  overflow: hidden;
+}
+.Body_Main .sliders #slid2 ul {
+  -webkit-animation: cambio 20s infinite;
+          animation: cambio 20s infinite;
+  -webkit-animation-direction: alternate;
+          animation-direction: alternate;
+}
+.Body_Main .sliders #slid2 ul li .informacion {
+  grid-area: uno;
+}
+.Body_Main .sliders #slid2 ul li a {
+  grid-area: dos;
+  height: 100%;
+  width: 100%;
+}
+.Body_Main .sliders #slid2 ul li a img {
+  height: 80%;
+  width: 80%;
+  border-radius: 50%;
+}
+.Body_Main .sliders #slid3 {
+  margin: auto;
+  overflow: hidden;
+}
+.Body_Main .sliders #slid3 ul {
+  -webkit-animation: cambio 20s infinite;
+          animation: cambio 20s infinite;
+  -webkit-animation-direction: alternate;
+          animation-direction: alternate;
+}
+.Body_Main .sliders #slid3 ul li .informacion {
+  grid-area: dos;
+}
+.Body_Main .sliders #slid3 ul li a {
+  grid-area: uno;
+  height: 100%;
+  width: 100%;
+}
+.Body_Main .sliders #slid3 ul li a img {
+  height: 80%;
+  width: 80%;
+  border-radius: 50%;
+}
+.Body_Main .sliders #slid4 {
+  margin: auto;
+  overflow: hidden;
+}
+.Body_Main .sliders #slid4 ul {
+  -webkit-animation: cambio 20s infinite;
+          animation: cambio 20s infinite;
+  -webkit-animation-direction: alternate;
+          animation-direction: alternate;
+}
+.Body_Main .sliders #slid4 ul li .informacion {
+  grid-area: uno;
+}
+.Body_Main .sliders #slid4 ul li a {
+  grid-area: dos;
+  height: 100%;
+  width: 100%;
+}
+.Body_Main .sliders #slid4 ul li a img {
+  height: 80%;
+  width: 80%;
+  border-radius: 50%;
+}
+.Body_Main footer {
+  grid-area: footer;
+  background-color: red;
+}
+
+@-webkit-keyframes cambio {
+  0% {
+    margin-left: 0;
+  }
+  20% {
+    margin-left: 0;
+  }
+  25% {
+    margin-left: -100%;
+  }
+  45% {
+    margin-left: -100%;
+  }
+  50% {
+    margin-left: -200%;
+  }
+  70% {
+    margin-left: -200%;
+  }
+  75% {
+    margin-left: -100%;
+  }
+  90% {
+    margin-left: -100%;
+  }
+  100% {
+    margin-left: 0%;
+  }
+}
+
+@keyframes cambio {
+  0% {
+    margin-left: 0;
+  }
+  20% {
+    margin-left: 0;
+  }
+  25% {
+    margin-left: -100%;
+  }
+  45% {
+    margin-left: -100%;
+  }
+  50% {
+    margin-left: -200%;
+  }
+  70% {
+    margin-left: -200%;
+  }
+  75% {
+    margin-left: -100%;
+  }
+  90% {
+    margin-left: -100%;
+  }
+  100% {
+    margin-left: 0%;
+  }
+}/*# sourceMappingURL=main.css.map */
+    </style>
+</body>
+</html>
