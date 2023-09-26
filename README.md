@@ -10,7 +10,7 @@
 - [ ] Usuario generico
 - [ ] Calcular tiempo de respuesta promedio 
 - [ ] Visualizar tablas y graficos
-- [ ] Descarga reporte PDF y CSV
+- [x] Descarga reporte PDF o CSV
 - [ ] APP mobile
 - [ ] Alojar en un servidor con acceso por usuario clave de caracter publico e incluir en la presentacion las credenciales de acceso.
 
