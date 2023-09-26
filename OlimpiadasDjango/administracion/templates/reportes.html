@@ -48,11 +48,7 @@
                     <a href="{% url 'exportarIdReportes' reporte.id %}"><button>Exportar Reportes</button></a>
                 </div>        
             {% endfor %}
-<<<<<<< HEAD
-            <a href="{% url 'exportarReportes' %}"><button>Exportar Reportes</button></a>
-=======
             <p>Tiempo promedio de atencion: {{tiempo_promedio}} minutos</p>
->>>>>>> f7309f055de9bea0464e18778ea231af492d0b30
         {% else %}
                 <p>No se ha encontrado ningun reporte</p>
         {% endif %}
