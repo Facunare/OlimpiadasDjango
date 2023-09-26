@@ -9,7 +9,7 @@
 - [x] Aumentar datos pacientes
 - [x] Usuario generico
 - [x] Calcular tiempo de respuesta promedio 
-- [ ] Visualizar tablas y graficos
+- [x] Visualizar tablas y graficos
 - [x] Descarga reporte PDF o CSV
 - [ ] APP mobile
 - [ ] Alojar en un servidor con acceso por usuario clave de caracter publico e incluir en la presentacion las credenciales de acceso.
