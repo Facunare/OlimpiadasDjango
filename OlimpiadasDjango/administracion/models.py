@@ -60,16 +60,17 @@ class Reporte(models.Model):
     llamado = models.ForeignKey(Llamado, default=None, on_delete=models.CASCADE)
     created_at = models.DateTimeField(default=timezone.now)
 
-# Calcular tiempo de respuesta promedio
 # Visualizar tablas y graficos
-# Descarga reporte PDF y CSV
-# Ver grafico
-# Crear formulario paciente en otra pagina
+
+
 # Diseño
 # Mejorar el codigo, modularizarlo, etc.
+# Redirecciones
+# Proteger rutas
 # Comentar codigo
 
 # Hacer aplicacion movil
+
 # Presentar todo en formato texto en un documento con titulo "Testeos, algoritmos e interacciones"
 # Presentar en el mismo documento con titulo "Planificacion y organizacion" una tabla que contenga fecha de inicio, descripción de la tarea, cantidad de días, tareas precedentes, responsable de la tarea.
 # Con titulo "Alternativas posibles" describir las alternativas evaluadas (min 2) y fundamentar porque elegimos una.

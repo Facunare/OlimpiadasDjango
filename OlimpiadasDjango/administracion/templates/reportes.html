@@ -44,17 +44,128 @@
                         <p>Llamado iniciado: {{reporte.llamado.created_at}}</p>
                         <p>Llamado terminado: {{reporte.created_at}}</p>
                     </div>
+                    <a href="{% url 'exportarIdReportes' reporte.id %}"><button>Exportar Reportes</button></a>
                 </div>        
             {% endfor %}
+            <p>Tiempo promedio de atencion: {{tiempo_promedio}} minutos</p>
         {% else %}
                 <p>No se ha encontrado ningun reporte</p>
         {% endif %}
+        <a href="{% url 'exportarReportes' %}"><button>Exportar Reportes</button></a>
 
     </div>    
+    <h2 class="graficos">Graficos</h2>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <figure class="highcharts-figure">
+        <div id="container1"></div>
+    </figure>
 
+    <script data-username="{{ zonaReporte }}">
+        const data = document.currentScript.dataset;
+        console.log(data.username)
+       
+        Highcharts.chart('container1', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Pacientes por zona'
+        },
+        xAxis: {
+            categories: [
+                'Cafeteria',
+                
+            ],
 
+            // aca los valores
+            
+            crosshair: true
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Zonas'
+            }
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y}</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
+            }
+        },
+        series: [{
+            name: 'Usuarios',
+            showInLegend: false,
+            data: [] 
+            // aca van las categorias
+        }]
+    });
 
+    </script>
     <style>
+        .highcharts-figure,
+.highcharts-data-table table {
+    min-width: 310px;
+    max-width: 800px;
+    margin: 1em auto;
+}
+
+#container {
+    height: 400px;
+}
+
+.highcharts-data-table table {
+    font-family: Verdana, sans-serif;
+    border-collapse: collapse;
+    border: 1px solid #ebebeb;
+    margin: 10px auto;
+    text-align: center;
+    width: 100%;
+    max-width: 500px;
+}
+
+.highcharts-data-table caption {
+    padding: 1em 0;
+    font-size: 1.2em;
+    color: #555;
+}
+
+.highcharts-data-table th {
+    font-weight: 600;
+    padding: 0.5em;
+}
+
+.highcharts-data-table td,
+.highcharts-data-table th,
+.highcharts-data-table caption {
+    padding: 0.5em;
+}
+
+.highcharts-data-table thead tr,
+.highcharts-data-table tr:nth-child(even) {
+    background: #f8f8f8;
+}
+
+.highcharts-data-table tr:hover {
+    background: #f1f7ff;
+}
+ 
+        .graficos{
+            text-align: center;
+            margin-top: 50px;
+        }
         .mensajeHora {
             display: none;
             position: absolute;

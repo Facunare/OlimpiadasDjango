@@ -13,8 +13,9 @@
 
             
 
-            <form action="{% url 'agregarPaciente' %}">
-                <input type="hidden" name="" value="{{zona.id}}">
+            <form action="{% url 'agregarPaciente' %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="zona_id" value="{{zona.id}}">
                 <button>
                     Agregar paciente
                 </button>

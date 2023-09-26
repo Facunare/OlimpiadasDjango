@@ -2,7 +2,9 @@ from django.shortcuts import render, redirect
 from .models import Zona, Paciente, Medico, Perfil, Reporte, Llamado
 from .forms import MedicoForm, PacienteForm
 from datetime import datetime, time, timedelta
-# Create your views here.
+import csv
+from django.http import HttpResponse
+import json
 
 def agregarZona(req):
     if req.method == 'POST':
@@ -155,7 +157,19 @@ def generarReporte(req, id):
 def verReportes(req):
     zonas = Zona.objects.all()
     reportes = Reporte.objects.all()
-    
+    tiempo_promedio = []
+    for reporte in reportes:
+        fecha_inicio = reporte.llamado.created_at
+        fecha_finalizacion = reporte.created_at
+        tiempo_transcurrido = fecha_finalizacion - fecha_inicio
+        tiempo_transcurrido_en_segundos = tiempo_transcurrido.total_seconds()
+        tiempo_transcurrido_en_minutos = tiempo_transcurrido_en_segundos / 60
+        tiempo_transcurrido_en_minutos_redondeado = round(tiempo_transcurrido_en_minutos, 2)
+        tiempo_promedio.append(tiempo_transcurrido_en_minutos_redondeado)
+
+    tiempo_promedio = sum(tiempo_promedio) / len(reportes)
+
+
     if req.method == "POST":
         zona_id = req.POST.get('filtroZona')
         origen_llamado = req.POST.get('origenLlamado')
@@ -185,8 +199,43 @@ def verReportes(req):
     
     return render(req, 'reportes.html', {
         'reportes': reportes,
-        'zonas': zonas
+        'zonas': zonas,
+        'tiempo_promedio':tiempo_promedio,
+        'zonaReporte':list(zonas)
     })
 
 def agregarPaciente(req):
-    return render(req, 'agregarPaciente.html')
+    print(req.POST['zona_id'])
+    return render(req, 'agregarPaciente.html',{
+        'id': req.POST['zona_id'],
+        "formPaciente": PacienteForm
+    })
+
+def exportarReporte(req):
+    reportes = Reporte.objects.all()
+    response = HttpResponse(content_type = 'text/csv')
+    response['Content-Disposition'] = 'attachment; filename=reportes.csv' 
+    writer = csv.writer(response)
+
+    writer.writerow(['Tipo', 'Consulta', 'Zona', 'Llamado', 'Hora Reporte'])
+
+    reportes_fields = reportes.values_list('tipo', 'consulta', 'zona', 'llamado', 'created_at')
+
+
+    for reporte in reportes_fields:
+        writer.writerow(reporte)
+    
+    return response
+
+def exportarIdReporte(req, id):
+    reportes = Reporte.objects.values_list('tipo', 'consulta', 'zona', 'llamado', 'created_at').get(id=id)
+    response = HttpResponse(content_type = 'text/csv')
+    response['Content-Disposition'] = 'attachment; filename=reportes.csv' 
+    writer = csv.writer(response)
+
+    writer.writerow(['Tipo', 'Consulta', 'Zona', 'Llamado', 'Hora Reporte'])
+
+    writer.writerow(reportes)
+    
+    return response
+
