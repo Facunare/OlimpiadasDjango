@@ -49,6 +49,8 @@ class Paciente(models.Model):
     peso_paciente_kg = models.IntegerField(default=0)
     altura_paciente = models.IntegerField(default=0)
     alergias = models.TextField(default="")
+    def __str__(self):
+        return self.nombre_paciente
 
 # Tabla Llamado
 
@@ -67,14 +69,13 @@ class Reporte(models.Model):
     llamado = models.ForeignKey(Llamado, default=None, on_delete=models.CASCADE)
     created_at = models.DateTimeField(default=timezone.now)
 
-# Visualizar tablas y graficos
-
-
-# Diseño
-# Mejorar el codigo, modularizarlo, etc.
+# Arreglar error filtros
+# Agregar los diseños de ippolito y baied
+# Terminar diseño en general
 # Redirecciones
-# Proteger rutas
-# Comentar codigo
+
+# Mejorar el codigo, modularizarlo, etc.
+
 
 # Hacer aplicacion movil
 
@@ -85,3 +86,10 @@ class Reporte(models.Model):
 
 # Alojar en un servidor con acceso por usuario clave de caracter publico e incluir en la presentacion las credenciales de acceso
 # Hacer informe final e incluir bibliografia
+
+
+# return_url = request.GET.get('return_url')
+#     if return_url:
+#         return redirect(return_url)
+#     return redirect('myProfile', id=id)
+# ?return_url={{ request.path }}

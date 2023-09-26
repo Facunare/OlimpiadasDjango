@@ -38,14 +38,13 @@
           
             {% for reporte in reportes %}
                 <div class="reporte">
-                    <p>{{reporte.llamado.paciente.nombre_paciente}} | {{reporte.llamado.zona}} | {{reporte.llamado.origen}}</p>
+                    <p>{{reporte.llamado.paciente.nombre_paciente}} | {{reporte.llamado.zona}} | {{reporte.llamado.origen}} | {{reporte.llamado.paciente.genero_paciente}}</p>
                     <p>{{reporte.consulta}}</p>              
                     <div>
                         <p>Llamado iniciado: {{reporte.llamado.created_at}}</p>
                         <p>Llamado terminado: {{reporte.created_at}}</p>
-                        <a href="{% url 'exportarIdReportes' reportes.id %}"><button>Exportar reporte</button></a>
+                        <a href="{% url 'exportarIdReportes' reporte.id %}"><button>Exportar Reporte</button></a>
                     </div>
-                    <a href="{% url 'exportarIdReportes' reporte.id %}"><button>Exportar Reportes</button></a>
                 </div>        
             {% endfor %}
             <p>Tiempo promedio de atencion: {{tiempo_promedio}} minutos</p>
@@ -61,14 +60,48 @@
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-    <figure class="highcharts-figure">
-        <div id="container1"></div>
-    </figure>
+    <div class="graficos">
 
-    <script data-username="{{ zonaReporte }}">
+        <figure class="highcharts-figure">
+            <div id="container1"></div>
+        </figure>
+        <figure class="highcharts-figure">
+            <div id="container2"></div>
+        </figure>
+        <figure class="highcharts-figure">
+            <div id="container3"></div>
+        </figure>
+        <figure class="highcharts-figure">
+            <div id="container4"></div>
+        </figure>
+    </div>
+
+    <script data-username="{{ zonaReporte }}" data-reportes="{{zonas_reportes}}">
         const data = document.currentScript.dataset;
-        console.log(data.username)
-       
+        const zonas = data.username.split(',').map(zone => {
+            if (zone.startsWith("['")) {
+                console.log("hola")
+                zone = zone.slice(2);
+            }
+            if (zone.endsWith("']")) {
+                zone = zone.slice(0, -2);
+            }
+            return zone;
+        });
+        const zonasReportes = data.reportes.split(',').map(zone => {
+            if (zone.startsWith("['")) {
+                console.log("hola")
+                zone = zone.slice(2);
+            }
+            if (zone.endsWith("']")) {
+                zone = zone.slice(0, -2);
+            }
+            return zone;
+        });
+        console.log(data)
+
+
+        
         Highcharts.chart('container1', {
         chart: {
             type: 'column'
@@ -77,10 +110,7 @@
             text: 'Pacientes por zona'
         },
         xAxis: {
-            categories: [
-                'Cafeteria',
-                
-            ],
+            categories: zonas,
 
             // aca los valores
             
@@ -89,7 +119,7 @@
         yAxis: {
             min: 0,
             title: {
-                text: 'Zonas'
+                text: 'Cantidad de pacientes'
             }
         },
         tooltip: {
@@ -109,13 +139,125 @@
         series: [{
             name: 'Usuarios',
             showInLegend: false,
-            data: [] 
+            data: {{ pacientesPorZona|safe }},
             // aca van las categorias
         }]
     });
 
+    Highcharts.chart('container2', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Reportes por zona'
+        },
+        xAxis: {
+            categories: zonasReportes,
+
+            // aca los valores
+            
+            crosshair: true
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Cantidad de reportes'
+            }
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y}</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
+            }
+        },
+        series: [{
+            name: 'Usuarios',
+            showInLegend: false,
+            data:  {{ reportesPorZona|safe }},
+            // aca van las categorias
+        }]
+    });
+
+    const reportesPorGenero = {{ reportesPorGenero|safe }};
+    Highcharts.chart('container3', {
+        chart: {
+            type: 'pie'
+        },
+        title: {
+            text: 'Reportes por Género'
+        },
+        tooltip: {
+            pointFormat: '<b>{point.name}: {point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    connectorColor: 'silver'
+                }
+            }
+        },
+        series: [{
+            name: 'Porcentaje',
+            data: reportesPorGenero.map(item => ({
+                name: item['llamado__paciente__genero_paciente'],
+                y: item['porcentaje']
+            })),
+        }]
+    });
+    const reportesPorOrigen= {{ reportesPorOrigen|safe }};
+    Highcharts.chart('container4', {
+        chart: {
+            type: 'pie'
+        },
+        title: {
+            text: 'Reportes por origen'
+        },
+        tooltip: {
+            pointFormat: '<b>{point.name}: {point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    connectorColor: 'silver'
+                }
+            }
+        },
+        series: [{
+            name: 'Porcentaje',
+            data: reportesPorOrigen.map(item => ({
+                name: item['llamado__origen'],
+                y: item['porcentaje']
+            })),
+        }]
+    });
+    
+    
+
+    
+
     </script>
     <style>
+
+        .graficos{
+            display: flex;
+            flex-wrap: wrap;
+        }
         .highcharts-figure,
 .highcharts-data-table table {
     min-width: 310px;

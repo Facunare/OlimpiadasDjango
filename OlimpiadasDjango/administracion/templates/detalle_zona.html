@@ -43,6 +43,10 @@
                                 {% csrf_token %}
                                 <button>Editar</button>
                             </form>
+                            <form action="{% url 'eliminarPaciente' paciente.id %}">
+                                {% csrf_token %}
+                                <button>Eliminar</button>
+                            </form>
                             </div>
                         </a>
                         <section class="modal">

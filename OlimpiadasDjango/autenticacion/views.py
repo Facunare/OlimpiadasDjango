@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
 from administracion import models
 
+
 # Vista SignUp
 
 def signup(request):
@@ -14,7 +15,7 @@ def signup(request):
             'form' : UserCreationForm
         })
     else:
-        if request.POST['password1'] == request.POST['password2']:
+        if request.POST['password1'] == request.POST['password2']: # Compara que las contraseñas establecidas sean iguales.
             try:
                 user = User.objects.create_user(username=request.POST['username'], password=request.POST['password1'])
                 nueva_perfil = models.Perfil(user = user)
