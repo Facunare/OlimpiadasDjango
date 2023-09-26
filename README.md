@@ -1,9 +1,9 @@
 # OlimpiadasDjango
 
 ### ToDoGeneral
-    - [ ] Diseñar pagina
-    - [ ] Mejorar el codigo, modularizarlo, etc.
-    - [ ] Comentar codigo
+- [ ] Diseñar pagina
+- [ ] Mejorar el codigo, modularizarlo, etc.
+- [ ] Comentar codigo
     
 ### ToDoWeb
 - [ ] Aumentar datos pacientes
