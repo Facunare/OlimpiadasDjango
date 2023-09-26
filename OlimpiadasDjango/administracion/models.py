@@ -37,15 +37,14 @@ class Paciente(models.Model):
     medico_asignado = models.ForeignKey(Medico, null=True, on_delete=models.CASCADE)
     zona = models.ForeignKey(Zona, default=None, on_delete=models.CASCADE)
     perfil = models.ForeignKey(Perfil, default=None, on_delete=models.CASCADE)
-    # domicilio_paciente = models.CharField(max_length=100, default="")
-    # genero_paciente = models.CharField(max_length=1, default="")
-    # telefono_paciente = models.IntegerField(default="")
-    # email_paciente = models.CharField(max_length=100, default="")
-    # grupo_sanguineo = models.CharField(max_length=5, default="")
-    # factor_rh = models.BooleanField(default=False)
-    # peso_paciente_kg = models.IntegerField(default=0)
-    # altura_paciente = models.IntegerField(default=0)
-    # alergias = models.TextField(default="")
+    domicilio_paciente = models.CharField(max_length=100, default="")
+    genero_paciente = models.CharField(max_length=1, default="")
+    telefono_paciente = models.CharField(null=True, default="", max_length=10)
+    email_paciente = models.CharField(max_length=100, default="")
+    grupo_sanguineo = models.CharField(max_length=5, default="")
+    peso_paciente_kg = models.IntegerField(default=0)
+    altura_paciente = models.IntegerField(default=0)
+    alergias = models.TextField(default="")
 
 class Llamado(models.Model):
     paciente = models.ForeignKey(Paciente, default=None, on_delete=models.CASCADE)
@@ -61,19 +60,16 @@ class Reporte(models.Model):
     llamado = models.ForeignKey(Llamado, default=None, on_delete=models.CASCADE)
     created_at = models.DateTimeField(default=timezone.now)
 
-
-
-# Aumentar datos pacientes
-# Usuario generico
 # Calcular tiempo de respuesta promedio
 # Visualizar tablas y graficos
 # Descarga reporte PDF y CSV
-
+# Ver grafico
+# Crear formulario paciente en otra pagina
 # Diseño
 # Mejorar el codigo, modularizarlo, etc.
+# Comentar codigo
 
 # Hacer aplicacion movil
-# Comentar codigo
 # Presentar todo en formato texto en un documento con titulo "Testeos, algoritmos e interacciones"
 # Presentar en el mismo documento con titulo "Planificacion y organizacion" una tabla que contenga fecha de inicio, descripción de la tarea, cantidad de días, tareas precedentes, responsable de la tarea.
 # Con titulo "Alternativas posibles" describir las alternativas evaluadas (min 2) y fundamentar porque elegimos una.

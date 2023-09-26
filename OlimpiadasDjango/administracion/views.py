@@ -23,8 +23,10 @@ def agregarMedico(req):
         dni_medico = req.POST['dni_medico']
         fecha_nac_medico = req.POST['fecha_nac_medico']
         domicilio_medico = req.POST['domicilio_medico']
-        nueva_zona = Zona(nombre_medico=nombre_medico, apellido_medico=apellido_medico, dni_medico=dni_medico, fecha_nac_medico=fecha_nac_medico, domicilio_medico=domicilio_medico)
-        nueva_zona.save()
+        zona = Zona.objects.get(id=int(req.POST['zona']))
+        
+        nuevo_medico = Medico(zona=zona,nombre_medico=nombre_medico, apellido_medico=apellido_medico, dni_medico=dni_medico, fecha_nac_medico=fecha_nac_medico, domicilio_medico=domicilio_medico)
+        nuevo_medico.save()
         return redirect('/')
     else:
         return render(req, 'agregarEnfermero.html',{
@@ -50,7 +52,17 @@ def crear_paciente(req, zona_id):
         apellido_paciente = req.POST['apellido_paciente']
         fecha_nac_paciente = req.POST['fecha_nac_paciente']
         DNI_paciente = req.POST['dni_paciente']
-        nuevo_paciente = Paciente(nombre_paciente=nombre_paciente, apellido_paciente=apellido_paciente, fecha_nac_paciente=fecha_nac_paciente, dni_paciente=int(DNI_paciente), zona=zona_id)
+        domicilio_paciente = req.POST['domicilio_paciente']
+        genero_paciente = req.POST['genero_paciente']
+        telefono_paciente = req.POST['telefono_paciente']
+        email_paciente = req.POST['email_paciente']
+        grupo_sanguineo = req.POST['grupo_sanguineo']
+        peso_paciente_kg = req.POST['peso_paciente_kg']
+        altura_paciente = req.POST['altura_paciente']
+        alergias = req.POST['alergias']
+        perfil = Perfil.objects.get(id=req.POST['perfil'])
+        nuevo_paciente = Paciente(perfil=perfil,domicilio_paciente=domicilio_paciente, genero_paciente=genero_paciente, telefono_paciente=telefono_paciente,
+        email_paciente=email_paciente, grupo_sanguineo=grupo_sanguineo,peso_paciente_kg=peso_paciente_kg, altura_paciente=altura_paciente, alergias=alergias, nombre_paciente=nombre_paciente, apellido_paciente=apellido_paciente, fecha_nac_paciente=fecha_nac_paciente, dni_paciente=int(DNI_paciente), zona=zona_id)
         nuevo_paciente.save()
     return redirect('/')
     
@@ -175,3 +187,6 @@ def verReportes(req):
         'reportes': reportes,
         'zonas': zonas
     })
+
+def agregarPaciente(req):
+    return render(req, 'agregarPaciente.html')
