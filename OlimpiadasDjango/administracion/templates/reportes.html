@@ -43,9 +43,11 @@
                     <div>
                         <p>Llamado iniciado: {{reporte.llamado.created_at}}</p>
                         <p>Llamado terminado: {{reporte.created_at}}</p>
+                        <a href="{% url 'exportarIdReportes' reportes.id %}"><button>Exportar reporte</button></a>
                     </div>
                 </div>        
             {% endfor %}
+            <a href="{% url 'exportarReportes' %}"><button>Exportar Reportes</button></a>
         {% else %}
                 <p>No se ha encontrado ningun reporte</p>
         {% endif %}

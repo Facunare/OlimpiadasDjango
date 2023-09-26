@@ -1,3 +1,5 @@
+import csv
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from .models import Zona, Paciente, Medico, Perfil, Reporte, Llamado
 from .forms import MedicoForm, PacienteForm
@@ -192,3 +194,37 @@ def verReportes(req):
         'reportes': reportes,
         'zonas': zonas
     })
+
+def exportarReporte(req):
+    reportes = Reporte.objects.all()
+    response = HttpResponse(content_type = 'text/csv')
+    response['Content-Disposition'] = 'attachment; filename=reportes.csv' 
+    writer = csv.writer(response)
+
+    writer.writerow(['Tipo', 'Consulta', 'Zona', 'Llamado', 'Hora Reporte'])
+
+    reportes_fields = reportes.values_list('tipo', 'consulta', 'zona', 'llamado', 'created_at')
+
+
+    for reporte in reportes_fields:
+        writer.writerow(reporte)
+    
+    return response
+
+def exportarIdReporte(req, id):
+    reportes = Reporte.objects.get(id=id)
+    response = HttpResponse(content_type = 'text/csv')
+    response['Content-Disposition'] = 'attachment; filename=reportes.csv' 
+    writer = csv.writer(response)
+
+    writer.writerow(['Tipo', 'Consulta', 'Zona', 'Llamado', 'Hora Reporte'])
+
+    reportes_fields = reportes.values_list('tipo', 'consulta', 'zona', 'llamado', 'created_at')
+
+
+    for reporte in reportes_fields:
+        writer.writerow(reporte)
+    
+    return response
+
+
