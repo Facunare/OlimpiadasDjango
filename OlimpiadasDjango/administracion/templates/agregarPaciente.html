@@ -9,13 +9,144 @@
 </head>
 <body>
     {% block content %}
-        <form action="{% url 'crear_paciente' id %}" method="POST">
+    <div class="container">
+        <h1>Crear Nuevo Paciente</h1>
+        <form action="{% url 'crear_paciente' id %}" method="POST" class="paciente-form">
             {% csrf_token %}
-            {{formPaciente}}
-            <button>Crear</button>
+            <div class="form-column">
+                <div class="form-group">
+                    <label for="{{ formPaciente.nombre_paciente.id_for_label }}">Nombre:</label>
+                    {{ formPaciente.nombre_paciente }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ formPaciente.apellido_paciente.id_for_label }}">Apellido:</label>
+                    {{ formPaciente.apellido_paciente }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ formPaciente.fecha_nac_paciente.id_for_label }}">Fecha de Nacimiento: (aaaa-mm-dd)</label>
+                    {{ formPaciente.fecha_nac_paciente }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ formPaciente.dni_paciente.id_for_label }}">DNI:</label>
+                    {{ formPaciente.dni_paciente }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ formPaciente.perfil.id_for_label }}">Perfil:</label>
+                    {{ formPaciente.perfil }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ formPaciente.domicilio_paciente.id_for_label }}">Domicilio:</label>
+                    {{ formPaciente.domicilio_paciente }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ formPaciente.genero_paciente.id_for_label }}">Género:</label>
+                    <select name="{{ formPaciente.genero_paciente.name }}" id="{{ formPaciente.genero_paciente.id_for_label }}">
+                        <option value="F">F</option>
+                        <option value="M">M</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-column">
+                <div class="form-group">
+                    <label for="{{ formPaciente.telefono_paciente.id_for_label }}">Teléfono:</label>
+                    {{ formPaciente.telefono_paciente }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ formPaciente.email_paciente.id_for_label }}">Email:</label>
+                    {{ formPaciente.email_paciente }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ formPaciente.grupo_sanguineo.id_for_label }}">Grupo Sanguíneo:</label>
+                    {{ formPaciente.grupo_sanguineo }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ formPaciente.peso_paciente_kg.id_for_label }}">Peso (kg):</label>
+                    {{ formPaciente.peso_paciente_kg }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ formPaciente.altura_paciente.id_for_label }}">Altura:</label>
+                    {{ formPaciente.altura_paciente }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ formPaciente.alergias.id_for_label }}">Alergias:</label>
+                    {{ formPaciente.alergias }}
+                </div>
+            </div>
+            <button class="btn-submit" type="submit">Crear</button>
         </form>
+    </div>
+    <style>
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            flex-direction: column;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .paciente-form {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: auto;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .form-column {
+            flex-basis: calc(50% - 10px); /* Ancho del 50% con espacio entre columnas */
+        }
+
         
-    {% endblock content %}
+        .form-group {
+            margin: 10px 0;
+            text-align: left;
+            margin-right: 50px;
+        }
+        
+        
+        input[type="text"],
+        input[type="number"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-top: 4px;
+        }
+        
+        select {
+            width: 100%; /* Ancho igual al de los otros inputs */
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-top: 4px;
+        }
+        .btn-submit {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .btn-submit:hover {
+            background-color: #0056b3;
+        }
+    </style>
+{% endblock content %}
 
     
 </body>

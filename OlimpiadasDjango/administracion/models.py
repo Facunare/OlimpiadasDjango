@@ -70,15 +70,12 @@ class Reporte(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
 
 # Arreglar error filtros
-# Agregar los diseños de ippolito y baied
 # Terminar diseño en general
-# Redirecciones
 
 # Mejorar el codigo, modularizarlo, etc.
 
 
 # Hacer aplicacion movil
-
 # Presentar todo en formato texto en un documento con titulo "Testeos, algoritmos e interacciones"
 # Presentar en el mismo documento con titulo "Planificacion y organizacion" una tabla que contenga fecha de inicio, descripción de la tarea, cantidad de días, tareas precedentes, responsable de la tarea.
 # Con titulo "Alternativas posibles" describir las alternativas evaluadas (min 2) y fundamentar porque elegimos una.

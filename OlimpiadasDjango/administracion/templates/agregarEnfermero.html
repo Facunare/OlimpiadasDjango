@@ -9,16 +9,89 @@
 </head>
 <body>
     {% block content %}
-        <form action="{% url 'agregarMedico' %}" method="POST">
+    <div class="container">
+        <form action="{% url 'agregarMedico' %}" method="POST" class="medico-form">
             {% csrf_token %}
-            {{form}}
-            <button>
-                Crear
-            </button>
-
+            <div class="form-group">
+                <label for="{{ form.nombre_medico.id_for_label }}">Nombre:</label>
+                {{ form.nombre_medico }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.apellido_medico.id_for_label }}">Apellido:</label>
+                {{ form.apellido_medico }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.dni_medico.id_for_label }}">DNI:</label>
+                {{ form.dni_medico }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.fecha_nac_medico.id_for_label }}">Fecha de Nacimiento (aaaa-mm-dd):</label>
+                {{ form.fecha_nac_medico }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.domicilio_medico.id_for_label }}">Domicilio:</label>
+                {{ form.domicilio_medico }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.zona.id_for_label }}">Zona:</label>
+                {{ form.zona }}
+            </div>
+            <button class="btn-submit" type="submit">Crear</button>
         </form>
-    
-    {% endblock content %}
+    </div>
+    <style>
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        .medico-form {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width:auto;
+        }
+
+        .form-group {
+            margin: 10px 0;
+            text-align: left;
+            display:flex;
+            flex-direction: column;
+        }
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 400px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        select{
+            width: 420px;
+        }
+
+        .btn-submit {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .btn-submit:hover {
+            background-color: #0056b3;
+        }
+    </style>
+{% endblock content %}
 
     
 </body>

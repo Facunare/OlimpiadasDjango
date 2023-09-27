@@ -69,6 +69,14 @@ def detalle_zona(req, id):
 @login_required
 def crear_paciente(req, zona_id):
     zona_id = Zona.objects.get(id=zona_id)
+
+    cantidad_maxima = zona_id.cant_pacientes
+    cantidad_actual = zona_id.paciente_set.count()
+
+    if cantidad_actual >= cantidad_maxima:
+        print("hola")
+        return render(req, 'home.html', {'error_message': 'La zona está llena. No se puede crear más pacientes.'})
+
     if req.method == 'POST':
         nombre_paciente = req.POST['nombre_paciente']
         apellido_paciente = req.POST['apellido_paciente']
@@ -86,7 +94,10 @@ def crear_paciente(req, zona_id):
         nuevo_paciente = Paciente(perfil=perfil,domicilio_paciente=domicilio_paciente, genero_paciente=genero_paciente, telefono_paciente=telefono_paciente,
         email_paciente=email_paciente, grupo_sanguineo=grupo_sanguineo,peso_paciente_kg=peso_paciente_kg, altura_paciente=altura_paciente, alergias=alergias, nombre_paciente=nombre_paciente, apellido_paciente=apellido_paciente, fecha_nac_paciente=fecha_nac_paciente, dni_paciente=int(DNI_paciente), zona=zona_id)
         nuevo_paciente.save()
-    return redirect('/')
+    return_url = req.GET.get('return_url')
+    if return_url:
+        return redirect(return_url+str(zona_id.id))
+    return redirect('/', id=id)
     
 # Vista Lista de pacientes
 
@@ -109,7 +120,10 @@ def asignarMedico(request, id):
             medico = Medico.objects.get(id=medico_id)
             paciente.medico_asignado = medico
             paciente.save()
-    return redirect("/")
+    return_url = request.GET.get('return_url')
+    if return_url:
+        return redirect(return_url)
+    return redirect('/', id=id)
 
 # Eliminar pacientes
 @login_required
@@ -117,7 +131,11 @@ def asignarMedico(request, id):
 def eliminarPaciente(request, id):
     paciente = Paciente.objects.get(id=id)
     paciente.delete()
-    return redirect("/")
+    return_url = request.GET.get('return_url')
+    if return_url:
+        return redirect(return_url)
+    return redirect('/pacientes/', id=id)
+
 
 # Vista editar paciente
 @staff_member_required

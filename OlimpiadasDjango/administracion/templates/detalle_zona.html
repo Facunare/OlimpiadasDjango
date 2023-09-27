@@ -10,15 +10,13 @@
 <body>
     {% block content %}
         <div class="main">
-
-            
-
-            <form action="{% url 'agregarPaciente' %}" method="POST">
+            <form action="{% url 'agregarPaciente' %}" method="POST" class="formAddPatience">
                 {% csrf_token %}
                 <input type="hidden" name="zona_id" value="{{zona.id}}">
                 <button>
                     Agregar paciente
                 </button>
+                <h1>Quirófano</h1>
             </form>
 
             <div class="pacientes">
@@ -28,32 +26,29 @@
                     <a class="paciente {% if paciente.perfil.isCalling %} pacienteLlamando {% elif paciente.perfil.isCallingNormal%} pacienteLlamandoNormal {% endif %}">
                         <p>{{paciente.dni_paciente}} | {{paciente.nombre_paciente}} {{paciente.apellido_paciente}} | {{paciente.zona.nombre_zona}} | {{paciente.medico_asignado.nombre_medico}}</p>
                         <div class="buttons">
-                            
                             <div>
                                 <button class="asignarMedico">Asignar enfermero</button>
                             </div>
-                            {% if paciente.perfil.isCalling or paciente.perfil.isCallingNormal %} 
+                            {% if paciente.perfil.isCalling or paciente.perfil.isCallingNormal %}
                             <form action="{% url 'generarReporte' paciente.id %}">
-                                <button>
-                                    Generar reporte
-                                </button>
+                                <button class="generarReporte">Generar reporte</button>
                             </form>
                             {% endif %}
                             <form action="{% url 'editar_paciente' paciente.id %}">
                                 {% csrf_token %}
-                                <button>Editar</button>
+                                <button class="editar">Editar</button>
                             </form>
-                            <form action="{% url 'eliminarPaciente' paciente.id %}">
+                            <form action="{% url 'eliminarPaciente' paciente.id %}?return_url={{ request.path }}">
                                 {% csrf_token %}
-                                <button>Eliminar</button>
+                                <button class="eliminar">Eliminar</button>
                             </form>
-                            </div>
-                        </a>
+                        </div>
+                    </a>
                         <section class="modal">
                             <div class="modal_container">
                                 <button href="#" class="modal_close">X</button>
                                 <h1>Asignar enfermero</h1>
-                                <form action="{% url "asignarMedico" paciente.id %}" method="POST">
+                                <form action="{% url "asignarMedico" paciente.id %}?return_url={{ request.path }}" method="POST">
                                     {% csrf_token %}
                                     <select name="medico_id" id="medico_id">
                                         {% for medico in medicos %}
@@ -67,12 +62,37 @@
                         </section>
                     {% endfor %}
                 {% else %}
-                    <p>No hay ningun paciente en este momento</p>
+                    <p class="noHay">No hay ningun paciente en este momento</p>
                 {% endif %}
             </div>
         </div>
     <style>
-
+        .formAddPatience button {
+            background: #1561b8;
+            color: white;
+            border: none;
+            outline: none;
+            padding: 10px;
+            font-size: 20px;
+            -webkit-box-shadow: 0 0 5px #236bbd;
+                    box-shadow: 0 0 5px #236bbd;
+            -webkit-transition: 0.2s;
+            cursor: pointer;
+            transition: 0.2s;
+          }
+          
+          h1{
+            padding-left: 15px;
+          }
+          .formAddPatience button:hover:active {
+            background: #1e589b;
+            scale: 1.02;
+          }
+        .noHay{
+            font-size: 30px;
+            text-align: center;
+            margin-top: 50px;
+        }
         .buttons{
             display: flex;
             gap: 20px;
@@ -125,15 +145,50 @@
             cursor: pointer;
             justify-content: space-between;
         }
-        {% comment %} .paciente:hover{
-            background-color: rgb(243, 243, 243);
-        } {% endcomment %}
 
         .pacientes{
             width: 100vw;
         }
 
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;           
+        }
         
+        button {
+            padding: 2px 10px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            text-transform: uppercase;
+            outline: none;
+        }
+        
+        .asignarMedico {
+            background-color: #3498db;
+            color: #fff;
+        }
+        
+        .generarReporte {
+            background-color: #27ae60;
+            color: #fff;
+        }
+        
+        .editar {
+            background-color: #e67e22;
+            color: #fff;
+        }
+        
+        .eliminar {
+            background-color: #e74c3c;
+            color: #fff;
+        }
+        
+        button:hover {
+            opacity: 0.9;
+        }
 
 
     </style>
