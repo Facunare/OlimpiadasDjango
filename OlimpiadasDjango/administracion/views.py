@@ -15,14 +15,18 @@ from django.contrib.admin.views.decorators import staff_member_required
 @staff_member_required
 @login_required
 def agregarZona(req):
+    nombre_zona = ""
+    cant_pacientes = 0
     if req.method == 'POST':
         
         # Recoge los datos pasados por el formulario
-        nombre_zona = req.POST['nombre_zona']
-        cant_pacientes = req.POST['cant_pacientes']
-
-        nueva_zona = Zona(nombre_zona=nombre_zona, cant_pacientes=cant_pacientes) # Se agregan los datos a la tabla Zona
-        nueva_zona.save()
+        if not nombre_zona and not cant_pacientes:
+            print("no se dieron los datos")
+        else:
+            nombre_zona = req.POST['nombre_zona']
+            cant_pacientes = req.POST['cant_pacientes']
+            nueva_zona = Zona(nombre_zona=nombre_zona, cant_pacientes=cant_pacientes) # Se agregan los datos a la tabla Zona
+            nueva_zona.save()
         return redirect('/')
     else:
         return render(req, 'agregarZona.html')
@@ -138,8 +142,8 @@ def eliminarPaciente(request, id):
 
 
 # Vista editar paciente
-@staff_member_required
 @login_required
+@staff_member_required
 def editar_paciente(req, paciente_id):
     paciente = Paciente.objects.get(id=paciente_id)
     
@@ -150,7 +154,9 @@ def editar_paciente(req, paciente_id):
             return redirect('/') 
     else:
         form = PacienteForm(instance=paciente)
-    
+    return_url = req.GET.get('return_url')
+    if return_url:
+        return redirect(return_url)
     return render(req, 'editar_pacientes.html', {'form': form})
 
 # Vista Ver perfil
@@ -174,17 +180,22 @@ def verPerfil(req):
 @login_required
 def llamar(req, id, type):
     paciente = Paciente.objects.get(perfil_id=id)
+    paciente_encontrado = False
+    if paciente:
+        paciente_encontrado = True
     if(type==0):
         paciente.perfil.isCalling = True
     else:
         paciente.perfil.isCallingNormal = True
     
-    print(req.POST['origen'])
+
     nuevo_llamado = Llamado(paciente = paciente, zona = paciente.zona, origen = req.POST['origen'])
     nuevo_llamado.save()
     paciente.perfil.save()
+    
     return render(req, 'perfil.html', {
-        'perfil':paciente.perfil
+        'perfil':paciente.perfil,
+        'paciente_encontrado': paciente_encontrado
     })
 
 # Vista Generar reporte
@@ -205,7 +216,7 @@ def generarReporte(req, id):
         paciente.perfil.isCalling = False
         paciente.perfil.isCallingNormal = False
         paciente.perfil.save()
-        return redirect('/')
+        return redirect('/verReportes/')
     else:
         return render(req, 'generarReporte.html', {
             'paciente':paciente
@@ -228,7 +239,7 @@ def verReportes(req):
         tiempo_transcurrido_en_minutos_redondeado = round(tiempo_transcurrido_en_minutos, 2)
         tiempo_promedio.append(tiempo_transcurrido_en_minutos_redondeado)
     if reportes:
-        tiempo_promedio = sum(tiempo_promedio) / len(reportes)
+        tiempo_promedio = round(sum(tiempo_promedio) / len(reportes), 2)
 
     # Se aplican los filtros de los reportes
     if req.method == "POST":
@@ -239,11 +250,15 @@ def verReportes(req):
         
         filtros = {}
         
-        if zona_id:
+        if zona_id == "todas":
+            print("Todas las opciones")
+        else:
+            print(zona_id)
             filtros['llamado__zona_id'] = zona_id # Filtrar por zona
-        
-        if origen_llamado != 'Todos los origenes':
+
+        if origen_llamado != 'todos':
             filtros['llamado__origen__icontains'] = origen_llamado # Filtrar por origen de llamado (cama o baño)
+            
         
         if fecha_reporte:
             fecha_reporte = datetime.strptime(fecha_reporte, '%Y-%m-%d').date() # Filtrar por fecha
@@ -258,7 +273,7 @@ def verReportes(req):
             rango_fin = (datetime.combine(datetime.today(), hora_reporte) + timedelta(minutes=5)).time() 
             filtros['created_at__time__gte'] = rango_inicio
             filtros['created_at__time__lte'] = rango_fin
-        
+        print(filtros)
         reportes = Reporte.objects.filter(**filtros)
         print(reportes)
     

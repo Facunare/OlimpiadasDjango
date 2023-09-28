@@ -10,6 +10,7 @@
 <body>
     {% block content %}
         <div class="main">
+            {% if user.is_authenticated and user.is_staff %}
             <form action="{% url 'agregarPaciente' %}" method="POST" class="formAddPatience">
                 {% csrf_token %}
                 <input type="hidden" name="zona_id" value="{{zona.id}}">
@@ -18,13 +19,14 @@
                 </button>
                 <h1>Quirófano</h1>
             </form>
+            {% endif %}
 
             <div class="pacientes">
 
                 {% if pacientes %}
                     {% for paciente in pacientes %}
                     <a class="paciente {% if paciente.perfil.isCalling %} pacienteLlamando {% elif paciente.perfil.isCallingNormal%} pacienteLlamandoNormal {% endif %}">
-                        <p>{{paciente.dni_paciente}} | {{paciente.nombre_paciente}} {{paciente.apellido_paciente}} | {{paciente.zona.nombre_zona}} | {{paciente.medico_asignado.nombre_medico}}</p>
+                        <p>{{paciente.dni_paciente}} | {{paciente.nombre_paciente}} {{paciente.apellido_paciente}} | {{paciente.zona.nombre_zona}} | {{paciente.medico_asignado.nombre_medico}} - {% if paciente.perfil.isCalling %} Llamada de emergencia {% elif paciente.perfil.isCallingNormal%} Llamada normal {% endif %}</p>
                         <div class="buttons">
                             <div>
                                 <button class="asignarMedico">Asignar enfermero</button>
@@ -100,6 +102,7 @@
 
         .pacienteLlamando{
             background: red;
+            color: white;
         }
 
         .pacienteLlamandoNormal{

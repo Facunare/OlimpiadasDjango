@@ -22,7 +22,7 @@
             <div class="filtrar-group">
                 <label for="filtroZona">Filtrar por Zona:</label>
                 <select name="filtroZona" id="filtroZona" class="select-filter">
-                    <option value="">Todas las Zonas</option>
+                    <option value="todas">Todas las Zonas</option>
                     {% for zona in zonas %}
                     <option value="{{ zona.id }}">{{ zona.nombre_zona }}</option>
                     {% endfor %}
@@ -57,14 +57,21 @@
         <div class="reporte">
                     <p>{{reporte.llamado.paciente.nombre_paciente}} | {{reporte.llamado.zona}} | {{reporte.llamado.origen}} | {{reporte.llamado.paciente.genero_paciente}}</p>
                     <p>{{reporte.consulta}}</p>              
-                    <div>
-                        <p>Llamado iniciado: {{reporte.llamado.created_at}}</p>
-                        <p>Llamado terminado: {{reporte.created_at}}</p>
-                        <a href="{% url 'exportarIdReportes' reporte.id %}" class="expReporte"><button>Exportar Reporte</button></a>
+                    <div class="rightReporte">
+                        <div class="fechas">
+
+                            <p>Llamado iniciado: {{reporte.llamado.created_at}}</p>
+                            <p>Llamado terminado: {{reporte.created_at}}</p>
+                        </div>
+                        <a href="{% url 'exportarIdReportes' reporte.id %}" class="expReporte expReporte2">
+                            <button class="btn-exportar">
+                                <img src="{% static 'csv.png' %}" alt="Exportar Reportes">
+                            </button>
+                        </a>
                     </div>
                 </div>        
                 {% endfor %}
-                <p>Tiempo promedio de atencion: {{tiempo_promedio}} minutos</p>
+                <p class="averageTime">Tiempo promedio de atencion: {{tiempo_promedio}} minutos</p>
                 {% else %}
                 <p class="noHay">No se ha encontrado ningun reporte</p>
         {% endif %}
@@ -266,7 +273,16 @@
 
     </script>
             <style>
-
+                .fechas{
+                    display: flex;
+                    flex-direction: column;
+                }
+        .rightReporte{
+            align-items: center;
+            justify-content: center;
+            display: flex;
+            gap: 15px;
+        }
         .noHay{
             text-align: center;
             font-size: 30px;
@@ -279,12 +295,23 @@
             cursor: pointer;
             background: transparent;
         }
+        .averageTime{
+            padding: 10px;
+            text-align: center;
+            color: white;
+            font-size: 15px;
+            background-color: #0056b3;
+        }
         .btn-exportar:hover{
             transform: scale(1.1);
         }
         
         .btn-exportar img {
             width: 60px;
+        }
+
+        .btn-exportar img:last-child{
+            width: 50px;
         }
 
         .filtrar {
@@ -418,7 +445,7 @@
 
         .reporte{
             display: flex;
-            border: 1px solid black;
+            box-shadow: 0 0 5px 1px #999;
             height: 50px;
             align-items: center;
             justify-content: space-between;

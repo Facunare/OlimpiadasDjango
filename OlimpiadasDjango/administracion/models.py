@@ -69,24 +69,12 @@ class Reporte(models.Model):
     llamado = models.ForeignKey(Llamado, default=None, on_delete=models.CASCADE)
     created_at = models.DateTimeField(default=timezone.now)
 
-# Arreglar error filtros
-# Terminar diseño en general
-
 # Mejorar el codigo, modularizarlo, etc.
-
-
-# Hacer aplicacion movil
-# Presentar todo en formato texto en un documento con titulo "Testeos, algoritmos e interacciones"
-# Presentar en el mismo documento con titulo "Planificacion y organizacion" una tabla que contenga fecha de inicio, descripción de la tarea, cantidad de días, tareas precedentes, responsable de la tarea.
-# Con titulo "Alternativas posibles" describir las alternativas evaluadas (min 2) y fundamentar porque elegimos una.
-# Con titulo "Errores y soluciones" los errores dectectados y solucion propuesta
+# Searchbar para buscar reportes o pacientes
+# Main Baied
+# Home ippolito
+# Mostrar llamados en lista de pacientes 
+# Validacion forms con js
 
 # Alojar en un servidor con acceso por usuario clave de caracter publico e incluir en la presentacion las credenciales de acceso
 # Hacer informe final e incluir bibliografia
-
-
-# return_url = request.GET.get('return_url')
-#     if return_url:
-#         return redirect(return_url)
-#     return redirect('myProfile', id=id)
-# ?return_url={{ request.path }}

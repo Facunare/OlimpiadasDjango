@@ -11,40 +11,92 @@
 <body>
     {% block content %}
     <h1>{{perfil.user.username}}</h1>
-    {% if paciente_encontrado %}
-        <form action="{% url 'llamar' perfil.id 0 %}" method="POST" {% if not paciente_encontrado %} disabled {% endif %}>
-            {% csrf_token %}
-            {% if perfil.isCalling or perfil.isCallingNormal%}
-                <button disabled>LLAMANDO</button>
-            {% else %}
-                <button>
-                    LLAMAR DE EMERGENCIA
-                </button>
-                <select name="origen" id="">
-                    <option value="baño">Baño</option>
-                    <option value="cama">Cama</option>
-                </select>
-            {% endif %}
-        </form>
-        <form action="{% url 'llamar' perfil.id 1 %}" method="POST">
-            {% csrf_token %}
-            {% if perfil.isCallingNormal or perfil.isCalling%}
-                <button disabled>LLAMANDO</button>
-            {% else %}
-                <button>
-                    LLAMAR NORMAL
-                </button>
-                <select name="origen" id="">
-                    <option value="baño">Baño</option>
-                    <option value="cama">Cama</option>
-                </select>
-            {% endif %}
-        </form>
-    {% else %}
-        No podra hacer llamados hasta no ser agregado como paciente del hospital. Por favor espere.
-    {% endif %}
+    <div class="main">
+
+        {% if paciente_encontrado %}
+        
+            <form action="{% url 'llamar' perfil.id 0 %}" method="POST" {% if not paciente_encontrado %} disabled {% endif %}>
+                {% csrf_token %}
+                {% if perfil.isCalling or perfil.isCallingNormal%}
+                    <button disabled>LLAMANDO</button>
+                {% else %}
+                    <button>
+                        LLAMAR DE EMERGENCIA
+                    </button>
+                    <select name="origen" id="">
+                        <option value="baño">Baño</option>
+                        <option value="cama">Cama</option>
+                    </select>
+                {% endif %}
+            </form>
+            <form action="{% url 'llamar' perfil.id 1 %}" method="POST" {% if not paciente_encontrado %} disabled {% endif %}>
+                {% csrf_token %}
+                {% if perfil.isCallingNormal or perfil.isCalling%}
+                    <button disabled>LLAMANDO</button>
+                {% else %}
+                    <button>
+                        LLAMAR NORMAL
+                    </button>
+                    <select name="origen" id="">
+                        <option value="baño">Baño</option>
+                        <option value="cama">Cama</option>
+                    </select>
+                {% endif %}
+            </form>
+        {% else %}
+            No podra hacer llamados hasta no ser agregado como paciente del hospital. Por favor espere.
+        {% endif %}
+    </div>
     <style>
-    
+        .main{
+            display: flex;
+            height: 80vh;
+            width: 100%;
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
+        }
+        h1{
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        form {
+            background-color: #ffffff;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: auto;
+        }
+
+        textarea{
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: none;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        form select{
+            height: 30px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
     </style>
     {% endblock content %}
 
