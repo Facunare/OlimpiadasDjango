@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
 
     container_TERTIARY: {
         padding: 0,
-        backgroundColor: "lightblue",
+        backgroundColor: "3b71f3",
     },
 
     text: {

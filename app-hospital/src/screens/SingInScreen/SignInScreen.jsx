@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
-import { useNavigation } from "@react-navigation/native"; // Importa useNavigation
+import { useNavigation } from "@react-navigation/native";
 import Logo from "../../../assets/images/logo-app.png";
 import CustomInput from "../../components/CustomsInput/CustomInput";
 import CustomButton from "../../components/CustomsButton/CustomButton";
@@ -8,12 +8,10 @@ import CustomButton from "../../components/CustomsButton/CustomButton";
 const SignInScreen = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const navigation = useNavigation(); // Obtiene la referencia de navegación
+    const navigation = useNavigation();
 
     const onSignInPressed = () => {
-        // Aquí debes verificar las credenciales del usuario y luego navegar si son válidas
         if (username === "abc" && password === "123") {
-            // Navegar a la pantalla principal (HomeScreen)
             navigation.navigate("Main");
         } else {
             console.warn("Credenciales incorrectas");
@@ -21,7 +19,7 @@ const SignInScreen = () => {
     };
 
     const onForgotPasswordPressed = () => {
-        console.warn("onForgotPasswordPressed");
+        console.warn("Bonto de recuperar");
     };
 
     return (
