@@ -1,0 +1,58 @@
+.zonas{
+    display: flex;
+    width: 100vw;
+    height: calc(100vh - 69px);
+    gap: 5px;
+    background: #000000;
+    .zona{
+        position: relative;
+        opacity: .7;
+
+        img{
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+            bottom: 100%;
+            z-index: 1;
+        }
+        
+        width: 0;
+        height: 100%;
+        flex-grow: 1;
+        transition: .2s;
+        color: black;
+        text-decoration: none;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        h2{
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: white;
+            text-shadow: 0 0 5px #000;
+            margin-top: 20px;
+            font-size: 30px;
+
+        }
+        p{
+            position: relative;
+            z-index: 2;
+            margin-bottom: 20px;
+            text-align: center;
+            color: white;
+        }
+
+        
+        &:hover{
+            width: 300px;
+            opacity: 1;
+        }
+    }
+
+}

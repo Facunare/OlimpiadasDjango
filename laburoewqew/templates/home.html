@@ -1,0 +1,30 @@
+{% extends 'base.html' %} {% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'home.css' %}">
+  </head>
+  <body>
+    {% block content %}
+    <div class="zonas"> 
+      {% for zona in zonas %}
+        
+        <a href="{% url 'detalle_zona' zona.id %}" class="zona {{zona.nombre_zona}}">
+          <h2>{{zona.nombre_zona}}</h2>
+          <img src="{% static '' %}{{zona.nombre_zona}}.jpg" alt="">
+          <p>Max: {{zona.cant_pacientes}} | Ocupado: {{zona.cantidad_actual_pacientes}}</p>
+        </a>
+      {% endfor %}
+      <p>{{error_message}}</p>
+    </div>
+
+    <style>
+      
+
+    </style>
+    {% endblock content %}
+  </body>
+</html>
