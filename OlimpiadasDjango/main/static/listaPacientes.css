@@ -1,0 +1,42 @@
+button {
+    padding: 2px 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    outline: none;
+}
+
+.eliminar {
+    background-color: #e74c3c;
+    color: #fff;
+}
+.eliminar:hover{
+    opacity: 0.9;
+}
+.noHay{
+    font-size: 30px;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.paciente{
+    border: 1px solid black;
+    padding: 5px;
+    display: flex;
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
+    justify-content: space-between;
+}
+
+.paciente:hover{
+    background-color: rgb(243, 243, 243);
+    color: black;
+}
+
+.pacientes{
+    width: 100vw;
+}
+

@@ -5,10 +5,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agregar Zona</title>
+    <title>Agregar paciente</title>
+
 </head>
 <body>
     {% block content %}
+    <link rel="stylesheet" href="{% static 'agregarPaciente.css' %}">
     <div class="container">
         <h1>Crear Nuevo Paciente</h1>
         <form action="{% url 'crear_paciente' id %}" method="POST" class="paciente-form">
@@ -75,77 +77,6 @@
             <button class="btn-submit" type="submit">Crear</button>
         </form>
     </div>
-    <style>
-        .container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f0f0f0;
-            flex-direction: column;
-        }
-
-        h1 {
-            margin-bottom: 20px;
-        }
-
-        .paciente-form {
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            width: auto;
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-            justify-content: space-between;
-        }
-
-        .form-column {
-            flex-basis: calc(50% - 10px); /* Ancho del 50% con espacio entre columnas */
-        }
-
-        
-        .form-group {
-            margin: 10px 0;
-            text-align: left;
-            margin-right: 50px;
-        }
-        
-        
-        input[type="text"],
-        input[type="number"],
-        textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            margin-top: 4px;
-        }
-        
-        select {
-            width: 100%; /* Ancho igual al de los otros inputs */
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            margin-top: 4px;
-        }
-        .btn-submit {
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        .btn-submit:hover {
-            background-color: #0056b3;
-        }
-    </style>
 {% endblock content %}
 
     

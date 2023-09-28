@@ -5,15 +5,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agregar Zona</title>
-
+    <title>Pacientes</title>
 </head>
 <body>
     {% block content %}
+    <link rel="stylesheet" href="{% static 'listaPacientes.css' %}">
+    <link rel="stylesheet" href="{% static 'detalle_zona.css' %}">
         {% if pacientes %}
             {% for paciente in pacientes %}
-            <a href="{% url "detalle_zona" paciente.zona.id %}" class="paciente">
-                <p>{{paciente.dni_paciente}} | {{paciente.nombre_paciente}} {{paciente.apellido_paciente}} | {{paciente.zona.nombre_zona}} | {{paciente.medico_asignado.nombre_medico}}</p>
+            <a href="{% url "detalle_zona" paciente.zona.id %}" class="paciente {% if paciente.perfil.isCalling %} pacienteLlamando {% elif paciente.perfil.isCallingNormal%} pacienteLlamandoNormal {% endif %}">
+                <p>{{paciente.dni_paciente}} | {{paciente.nombre_paciente}} {{paciente.apellido_paciente}} | {{paciente.zona.nombre_zona}} | {{paciente.medico_asignado.nombre_medico}} -  {% if paciente.perfil.isCalling %} Llamada de emergencia {% elif paciente.perfil.isCallingNormal%} Llamada normal {% endif %}</p>
                 <form action="{% url 'eliminarPaciente' paciente.id %}?return_url={{ request.path }}">
                     {% csrf_token %}
                     <button class="eliminar">Eliminar</button>
@@ -24,48 +25,6 @@
         <p class="noHay">No hay ningun paciente en este momento</p>
     {% endif %}
 
-    <style>
-        button {
-            padding: 2px 10px;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-            text-transform: uppercase;
-            outline: none;
-        }
-        
-        .eliminar {
-            background-color: #e74c3c;
-            color: #fff;
-        }
-        .eliminar:hover{
-            opacity: 0.9;
-        }
-        .noHay{
-            font-size: 30px;
-            text-align: center;
-            margin-top: 50px;
-        }
-
-        .paciente{
-            border: 1px solid black;
-            padding: 5px;
-            display: flex;
-            cursor: pointer;
-            text-decoration: none;
-            color: black;
-            justify-content: space-between;
-        }
-        
-        .paciente:hover{
-            background-color: rgb(243, 243, 243);
-        }
-
-        .pacientes{
-            width: 100vw;
-        }
-    </style>
     <script>
         const editButton = document.querySelectorAll(".editButton")
         const modal_editar = document.querySelector(".modal_editar")

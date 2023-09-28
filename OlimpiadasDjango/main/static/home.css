@@ -1,4 +1,53 @@
-.zonas{
-    display: flex;
-    flex-wrap: wrap;
+.zonas {
+  display: flex;
+  width: 100vw;
+  height: 87.9vh;
+  gap: 5px;
+  background: #000000;
+}
+.zonas .zona {
+  position: relative;
+  opacity: 0.7;
+  width: 0;
+  height: 100%;
+  flex-grow: 1;
+  transition: 0.2s;
+  color: black;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.zonas .zona img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  -o-object-fit: cover;
+     object-fit: cover;
+  width: 100%;
+  height: 100%;
+  bottom: 100%;
+  z-index: 1;
+}
+.zonas .zona h2 {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: white;
+  text-shadow: 0 0 5px #000;
+  margin-top: 20px;
+  font-size: 30px;
+}
+.zonas .zona p {
+  position: relative;
+  z-index: 2;
+  margin-bottom: 20px;
+  text-align: center;
+  color: white;
+}
+.zonas .zona:hover {
+  width: 300px;
+  opacity: 1;
 }

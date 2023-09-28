@@ -16,6 +16,8 @@ class Perfil(models.Model):
 class Zona(models.Model):
     nombre_zona = models.CharField(max_length=50)
     cant_pacientes = models.IntegerField()
+    foto = models.ImageField(upload_to='zonaFoto', blank=True, null=True)
+
     def __str__(self):
         return self.nombre_zona
     
@@ -69,12 +71,6 @@ class Reporte(models.Model):
     llamado = models.ForeignKey(Llamado, default=None, on_delete=models.CASCADE)
     created_at = models.DateTimeField(default=timezone.now)
 
-# Mejorar el codigo, modularizarlo, etc.
-# Searchbar para buscar reportes o pacientes
-# Main Baied
-# Home ippolito
-# Mostrar llamados en lista de pacientes 
-# Validacion forms con js
-
 # Alojar en un servidor con acceso por usuario clave de caracter publico e incluir en la presentacion las credenciales de acceso
 # Hacer informe final e incluir bibliografia
+# Codigo en formato texto

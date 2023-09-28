@@ -1,0 +1,123 @@
+.formAddPatience button {
+    background: #1561b8;
+    color: white;
+    border: none;
+    outline: none;
+    padding: 10px;
+    font-size: 20px;
+    -webkit-box-shadow: 0 0 5px #236bbd;
+            box-shadow: 0 0 5px #236bbd;
+    -webkit-transition: 0.2s;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+  
+  h1{
+    padding-left: 15px;
+  }
+  .formAddPatience button:hover:active {
+    background: #1e589b;
+    scale: 1.02;
+  }
+.noHay{
+    font-size: 30px;
+    text-align: center;
+    margin-top: 50px;
+}
+.buttons{
+    display: flex;
+    gap: 20px;
+}
+
+.pacienteLlamando{
+    background: red;
+    color: white;
+}
+
+.pacienteLlamandoNormal{
+    background: orange;
+}
+.modal form{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.modal form select{
+    height: 50px;
+}
+form input{
+    padding: 10px;
+    border: 1px solid black;
+    outline: none;
+    margin: 0;
+    display: flex;
+    width: 200px;
+}
+
+form .addButton{
+    width: 223px;
+    margin: 0;
+    cursor: pointer;
+    color: white;
+    padding: 10px;
+    background-color: rgb(20, 20, 129);
+}
+
+.main{
+    display: flex;
+    width: 100vw;
+}
+
+.paciente{
+    border: 1px solid black;
+    padding: 5px;
+    display: flex;
+    cursor: pointer;
+    justify-content: space-between;
+}
+
+.pacientes{
+    width: 100vw;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;           
+}
+
+button {
+    padding: 2px 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    outline: none;
+}
+
+.asignarMedico {
+    background-color: #3498db;
+    color: #fff;
+}
+
+.generarReporte {
+    background-color: #27ae60;
+    color: #fff;
+}
+
+.editar {
+    background-color: #e67e22;
+    color: #fff;
+}
+
+.eliminar {
+    background-color: #e74c3c;
+    color: #fff;
+}
+
+button:hover {
+    opacity: 0.9;
+}

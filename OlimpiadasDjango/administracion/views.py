@@ -15,18 +15,24 @@ from django.contrib.admin.views.decorators import staff_member_required
 @staff_member_required
 @login_required
 def agregarZona(req):
-    nombre_zona = ""
-    cant_pacientes = 0
+
     if req.method == 'POST':
+        nombre_zona = req.POST['nombre_zona']
+        cant_pacientes = req.POST['cant_pacientes']
+        foto = req.FILES['zonaFoto']
         
-        # Recoge los datos pasados por el formulario
-        if not nombre_zona and not cant_pacientes:
-            print("no se dieron los datos")
-        else:
-            nombre_zona = req.POST['nombre_zona']
-            cant_pacientes = req.POST['cant_pacientes']
-            nueva_zona = Zona(nombre_zona=nombre_zona, cant_pacientes=cant_pacientes) # Se agregan los datos a la tabla Zona
-            nueva_zona.save()
+        if int(cant_pacientes)<=0:
+            return render(req, 'agregarZona.html',{
+                "error": "La cantidad de pacientes debe ser mayor o igual 1"
+            })
+        if nombre_zona=="":
+            return render(req, 'agregarZona.html',{
+                "error": "Escribe un nombre"
+            })
+            
+     
+        nueva_zona = Zona(nombre_zona=nombre_zona, cant_pacientes=cant_pacientes, foto = foto) # Se agregan los datos a la tabla Zona
+        nueva_zona.save()
         return redirect('/')
     else:
         return render(req, 'agregarZona.html')
@@ -322,9 +328,9 @@ def exportarReporte(req):
     response['Content-Disposition'] = 'attachment; filename=reportes.csv' 
     writer = csv.writer(response)
 
-    writer.writerow(['Tipo', 'Consulta', 'Zona', 'Llamado', 'Hora Reporte'])
+    writer.writerow(['Paciente', 'Tipo', 'Consulta', 'Zona', 'Llamado', 'Hora Reporte', 'Genero'])
 
-    reportes_fields = reportes.values_list('tipo', 'consulta', 'zona', 'llamado', 'created_at')
+    reportes_fields = reportes.values_list('llamado__paciente__nombre_paciente','tipo', 'consulta', 'zona', 'llamado', 'created_at',  'llamado__paciente__genero_paciente')
 
 
     for reporte in reportes_fields:
@@ -335,12 +341,12 @@ def exportarReporte(req):
 # Vista para exportar reportes individualmente
 @login_required
 def exportarIdReporte(req, id):
-    reportes = Reporte.objects.values_list('tipo', 'consulta', 'zona', 'llamado', 'created_at').get(id=id)
+    reportes = Reporte.objects.values_list('llamado__paciente__nombre_paciente', 'tipo', 'consulta', 'zona', 'llamado', 'created_at', 'llamado__paciente__genero_paciente').get(id=id)
     response = HttpResponse(content_type = 'text/csv')
     response['Content-Disposition'] = 'attachment; filename=reportes.csv' 
     writer = csv.writer(response)
 
-    writer.writerow(['Tipo', 'Consulta', 'Zona', 'Llamado', 'Hora Reporte'])
+    writer.writerow(['Paciente', 'Tipo', 'Consulta', 'Zona', 'Llamado', 'Hora Reporte', 'Genero'])
 
     writer.writerow(reportes)
     
