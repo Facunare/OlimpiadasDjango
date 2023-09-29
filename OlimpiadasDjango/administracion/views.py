@@ -135,7 +135,7 @@ def asignarMedico(request, id):
         return redirect(return_url)
     return redirect('/', id=id)
 
-# Eliminar pacientes
+# Vista Eliminar pacientes
 @login_required
 @staff_member_required
 def eliminarPaciente(request, id):
@@ -145,6 +145,14 @@ def eliminarPaciente(request, id):
     if return_url:
         return redirect(return_url)
     return redirect('/pacientes/', id=id)
+
+# Vista Eliminar zona
+@login_required
+@staff_member_required
+def removerZona(request, id):
+    zona = Zona.objects.get(id=id)
+    zona.delete()
+    return redirect('/', id=id)
 
 
 # Vista editar paciente

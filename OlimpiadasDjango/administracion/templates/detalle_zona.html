@@ -11,23 +11,32 @@
     {% block content %}
     <link rel="stylesheet" href="{% static 'detalle_zona.css' %}">
         <div class="main">
-            {% if user.is_authenticated and user.is_staff %}
-            <form action="{% url 'agregarPaciente' %}" method="POST" class="formAddPatience">
-                {% csrf_token %}
-                <input type="hidden" name="zona_id" value="{{zona.id}}">
-                <button>
-                    Agregar paciente
-                </button>
-                <h1>Quirófano</h1>
-            </form>
-            {% endif %}
+            <div class="panelIzquierda">
+                <h1>{{zona.nombre_zona}}</h1>
 
+                {% if user.is_authenticated and user.is_staff %}
+                <form action="{% url 'agregarPaciente' %}" method="POST" class="formAddPatience">
+                    {% csrf_token %}
+                    <input type="hidden" name="zona_id" value="{{zona.id}}">
+                    <button>
+                        Agregar paciente
+                    </button>
+                </form>
+                <form action="{% url 'removerZona' zona.id %}" method="POST" class="formAddPatience">
+                    {% csrf_token %}
+                    <button>Remover Zona</button>
+                </form>
+                
+                {% endif %}
+            </div>
+                
             <div class="pacientes">
 
                 {% if pacientes %}
                     {% for paciente in pacientes %}
                     <a class="paciente {% if paciente.perfil.isCalling %} pacienteLlamando {% elif paciente.perfil.isCallingNormal%} pacienteLlamandoNormal {% endif %}">
                         <p>{{paciente.dni_paciente}} | {{paciente.nombre_paciente}} {{paciente.apellido_paciente}} | {{paciente.zona.nombre_zona}} | {{paciente.medico_asignado.nombre_medico}} - {% if paciente.perfil.isCalling %} Llamada de emergencia {% elif paciente.perfil.isCallingNormal%} Llamada normal {% endif %}</p>
+                        {% if user.is_authenticated and user.is_staff %}
                         <div class="buttons">
                             <div>
                                 <button class="asignarMedico">Asignar enfermero</button>
@@ -46,6 +55,8 @@
                                 <button class="eliminar">Eliminar</button>
                             </form>
                         </div>
+                        {% endif %}
+                        
                     </a>
                         <section class="modal">
                             <div class="modal_container">

@@ -1,7 +1,11 @@
+body{
+  overflow: hidden;
+}
 .zonas {
   display: flex;
   width: 100vw;
-  height: 87.9vh;
+  overflow: hidden;
+  height: calc(100vh - 106px);
   gap: 5px;
   background: #000000;
 }

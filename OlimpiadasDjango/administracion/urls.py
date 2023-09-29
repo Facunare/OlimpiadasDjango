@@ -17,5 +17,6 @@ urlpatterns = [
     path('exportarReportes/', views.exportarReporte, name='exportarReportes'),
     path('exportarIdReportes/<int:id>', views.exportarIdReporte, name='exportarIdReportes'),
     path('eliminarPaciente/<int:id>', views.eliminarPaciente, name='eliminarPaciente'),
+    path('removerZona/<int:id>', views.removerZona, name='removerZona'),
      
 ]
