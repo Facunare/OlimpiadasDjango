@@ -1,0 +1,132 @@
+{% extends 'base.html' %} {% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body class="Body_Main">
+    {% block content %}
+    <link rel="stylesheet" href="{% static 'main.css' %}" />
+    <main>
+      <div class="presentacion">
+        <img src="{% static 'hospital.jpg' %}" alt="" />
+      </div>
+      <div class="sliders">
+        <div id="slid1" class="slid">
+          <ul>
+            <li>
+              <div class="informacion">
+                <h2>Gastroenterología</h2>
+                <p></p>
+              </div>
+              <a href=""
+                ><img src="{% static 'gastrologia.jpg' %}" alt="" /></a>
+            </li>
+            <li>
+              <div class="informacion">
+                <h2>Infectología</h2>
+                <p></p>
+              </div>
+              <a href=""
+                ><img src="{% static 'descarga.jpg' %}" alt="" /></a>
+            </li>
+            <li>
+              <div class="informacion">
+                <h2>Maternidad</h2>
+                <p></p>
+              </div>
+              <a href=""
+                ><img src="{% static 'Maternidad.jpg' %}" alt="" /></a>
+            </li>
+          </ul>
+        </div>
+        <div id="slid2" class="slid">
+          <ul>
+            <li>
+              <div class="informacion">
+                <h2>Odontología</h2>
+                <p></p>
+              </div>
+              <a href=""
+                ><img src="{% static 'odontologia.jpg' %}" alt="" /></a>
+            </li>
+            <li>
+              <div class="informacion">
+                <h2>Oncología</h2>
+                <p></p>
+              </div>
+              <a href=""
+                ><img src="{% static 'onctologia.jpg' %}" alt="" /></a>
+            </li>
+            <li>
+              <div class="informacion">
+                <h2>Oftalmología</h2>
+                <p></p>
+              </div>
+              <a href=""
+                ><img src="{% static 'Oftalmología.jpg' %}" alt="" /></a>
+            </li>
+          </ul>
+        </div>
+        <div id="slid3" class="slid">
+          <ul>
+            <li>
+              <div class="informacion">
+                <h2>Quemados</h2>
+                <p></p>
+              </div>
+              <a href=""
+                ><img src="{% static 'Quemados.jpg' %}" alt="" /></a>
+            </li>
+            <li>
+              <div class="informacion">
+                <h2>Análisis Clínicos</h2>
+                <p></p>
+              </div>
+              <a href=""
+                ><img src="{% static 'AnálisisClínicos.jpg' %}" alt="" /></a>
+            </li>
+            <li>
+              <div class="informacion">
+                <h2>Rehabilitación respiratoria</h2>
+                <p></p>
+              </div>
+              <a href=""
+                ><img src="{% static 'Rehabilitaciónrespiratoria.jpg' %}" alt="" /></a>
+            </li>
+          </ul>
+        </div>
+        <div id="slid4" class="slid">
+          <ul>
+            <li>
+              <div class="informacion">
+                <h2>Salud mental</h2>
+                <p></p>
+              </div>
+              <a href=""
+                ><img src="{% static 'Saludmental.jpg' %}" alt="" /></a>
+            </li>
+            <li>
+              <div class="informacion">
+                <h2>Zoonosis</h2>
+                <p></p>
+              </div>
+              <a href=""
+                ><img src="{% static 'Zoonosis.jpg' %}" alt="" /></a>
+            </li>
+            <li>
+              <div class="informacion">
+                <h2>Cirugía</h2>
+                <p></p>
+              </div>
+              <a href=""
+                ><img src="{% static 'cirugia.jpg' %}" alt="" /></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </main>
+    {% include 'footer.html' %} {% endblock content %}
+  </body>
+</html>

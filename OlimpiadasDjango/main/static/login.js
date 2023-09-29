@@ -14,12 +14,11 @@ $(".inputs").on("focus", function (e) {
         : "text"
     );
     if ($(e.currentTarget.offsetParent.children[0]).attr("type") == "text"){
-      $(e.currentTarget.offsetParent.children[3]).removeClass("hidden")
       $(e.currentTarget.offsetParent.children[2]).addClass("hidden")
+      $(e.currentTarget.offsetParent.children[3]).removeClass("hidden")
     }else{
-      console.log("ocultar")
-      $(e.currentTarget.offsetParent.children[3]).addClass("hidden")
       $(e.currentTarget.offsetParent.children[2]).removeClass("hidden")
+      $(e.currentTarget.offsetParent.children[3]).addClass("hidden")
     }
   });
   

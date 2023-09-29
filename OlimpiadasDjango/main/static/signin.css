@@ -10,6 +10,11 @@
   }
   
   /* ---- stats.js ---- */
+  .loginBody .loginBox .inputBox .hidden {
+    opacity: 0;
+  }
+  
+
   .loginBody {
     overflow: hidden;
     height: 100vh;

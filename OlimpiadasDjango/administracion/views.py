@@ -33,7 +33,7 @@ def agregarZona(req):
      
         nueva_zona = Zona(nombre_zona=nombre_zona, cant_pacientes=cant_pacientes, foto = foto) # Se agregan los datos a la tabla Zona
         nueva_zona.save()
-        return redirect('/')
+        return redirect('/home')
     else:
         return render(req, 'agregarZona.html')
     
@@ -54,7 +54,7 @@ def agregarMedico(req):
         
         nuevo_medico = Medico(zona=zona,nombre_medico=nombre_medico, apellido_medico=apellido_medico, dni_medico=dni_medico, fecha_nac_medico=fecha_nac_medico, domicilio_medico=domicilio_medico)
         nuevo_medico.save()
-        return redirect('/')
+        return redirect('/home')
     else:
         return render(req, 'agregarEnfermero.html',{
             "form": MedicoForm
@@ -107,7 +107,7 @@ def crear_paciente(req, zona_id):
     return_url = req.GET.get('return_url')
     if return_url:
         return redirect(return_url+str(zona_id.id))
-    return redirect('/', id=id)
+    return redirect('/home', id=id)
     
 # Vista Lista de pacientes
 
@@ -133,7 +133,7 @@ def asignarMedico(request, id):
     return_url = request.GET.get('return_url')
     if return_url:
         return redirect(return_url)
-    return redirect('/', id=id)
+    return redirect('/home', id=id)
 
 # Vista Eliminar pacientes
 @login_required
@@ -152,7 +152,7 @@ def eliminarPaciente(request, id):
 def removerZona(request, id):
     zona = Zona.objects.get(id=id)
     zona.delete()
-    return redirect('/', id=id)
+    return redirect('/home', id=id)
 
 
 # Vista editar paciente
@@ -165,7 +165,7 @@ def editar_paciente(req, paciente_id):
         form = PacienteForm(req.POST, instance=paciente) 
         if form.is_valid():
             form.save()  
-            return redirect('/') 
+            return redirect('/home') 
     else:
         form = PacienteForm(instance=paciente)
     return_url = req.GET.get('return_url')

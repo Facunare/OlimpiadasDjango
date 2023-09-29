@@ -25,10 +25,10 @@
                     <input type="password" id="password" name="password" class="inputs" />
                     <label for="password" class="labelInput">Contraseña</label>
                     <img src="{% static 'eye.svg' %}" class="togglePassword" id="eye-open" />
-                    <img src="{% static 'eye-slash.svg' %}" class="togglePassword" id="eye-closed" style="display: none;" />
+                    <img src="{% static 'eye-slash.svg' %}" class="togglePassword hidden" id="eye-closed"  />
                 </div>
                 <button class="btnLogin">Iniciar Sesión</button>
-                <p>Si aun no tienes una cuenta <a href="/signup/">registrate!</a></p>
+                <p>Si aun no tienes una cuenta <a href="/signup/">Registrate!</a></p>
                 {% if error %}
                 <span class="errorSignin">{{error}}</span>
                 {% endif %}

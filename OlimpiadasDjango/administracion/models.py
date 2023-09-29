@@ -70,7 +70,3 @@ class Reporte(models.Model):
     zona = models.ForeignKey(Zona, on_delete=models.CASCADE, default=1)
     llamado = models.ForeignKey(Llamado, default=None, on_delete=models.CASCADE)
     created_at = models.DateTimeField(default=timezone.now)
-
-# Alojar en un servidor con acceso por usuario clave de caracter publico e incluir en la presentacion las credenciales de acceso
-# Hacer informe final e incluir bibliografia
-# Codigo en formato texto

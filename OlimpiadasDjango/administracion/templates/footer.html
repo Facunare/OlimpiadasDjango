@@ -1,0 +1,32 @@
+{% load static %}
+<footer>
+    {% block content %}
+    <div class="Informacion">
+        <div class="informacion1">
+            <img src="{% static 'logo.png' %}" alt="" />
+        </div>
+        <div class="informacion2">
+           <h2>Localizacion</h2>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d52534.361208440045!2d-58.4155136!3d-34.619392!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2sar!4v1695733576454!5m2!1ses-419!2sar" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        <div class="informacion3">
+          <ul>
+                <li>Telefono: 15627352</li>
+                <li>Sucursal: Puerto madero</li>
+                <li><a id="Sobre_nosotros" href="">Sobre nosotros</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="Redes_Sociales">
+  
+       <ul>
+            <li><a href="">Whatsapp<img src="" alt=""></a></li>
+            <li><a href="">Instragam<img src="" alt=""></a></li>
+            <li><a href="">Facebook<img src="" alt=""></a></li>
+        </ul>
+    </div>
+    <style>
+        
+    </style>
+    {% endblock content %}
+</footer>

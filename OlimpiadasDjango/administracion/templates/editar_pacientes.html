@@ -10,16 +10,76 @@
 </head>
 <body>
     {% block content %}
+    <link rel="stylesheet" href="{% static 'agregarPaciente.css' %}">
         {% for paciente in pacientes %}
         <a href="{% url 'editar_paciente' paciente.id %}">
             <button>Editar</button>
         </a>
     {% endfor %}
-    <div class="main">
-        <form method="POST">
+    <div class="container">
+        <h1>Editar Datos Paciente</h1>
+        <form action="" method="POST" class="paciente-form">
             {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Guardar Cambios</button>
+            <div class="form-column">
+                <div class="form-group">
+                    <label for="{{ form.nombre_paciente.id_for_label }}">Nombre:</label>
+                    {{ form.nombre_paciente }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.apellido_paciente.id_for_label }}">Apellido:</label>
+                    {{ form.apellido_paciente }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.fecha_nac_paciente.id_for_label }}">Fecha de Nacimiento: (aaaa-mm-dd)</label>
+                    {{ form.fecha_nac_paciente }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.dni_paciente.id_for_label }}">DNI:</label>
+                    {{ form.dni_paciente }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.perfil.id_for_label }}">Perfil:</label>
+                    {{ form.perfil }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.domicilio_paciente.id_for_label }}">Domicilio:</label>
+                    {{ form.domicilio_paciente }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.genero_paciente.id_for_label }}">Género:</label>
+                    <select name="{{ form.genero_paciente.name }}" id="{{ formPaciente.genero_paciente.id_for_label }}">
+                        <option value="F">F</option>
+                        <option value="M">M</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-column">
+                <div class="form-group">
+                    <label for="{{ form.telefono_paciente.id_for_label }}">Teléfono:</label>
+                    {{ form.telefono_paciente }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.email_paciente.id_for_label }}">Email:</label>
+                    {{ form.email_paciente }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.grupo_sanguineo.id_for_label }}">Grupo Sanguíneo:</label>
+                    {{ form.grupo_sanguineo }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.peso_paciente_kg.id_for_label }}">Peso (kg):</label>
+                    {{ form.peso_paciente_kg }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.altura_paciente.id_for_label }}">Altura:</label>
+                    {{ form.altura_paciente }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.alergias.id_for_label }}">Alergias:</label>
+                    {{ form.alergias }}
+                </div>
+            </div>
+            <button class="btn-submit" type="submit">Crear</button>
         </form>
     </div>
 
