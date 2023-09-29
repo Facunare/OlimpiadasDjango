@@ -1,55 +1,77 @@
-
-{% extends 'base.html' %}
-{% load static %}
+{% extends 'base.html' %} {% load static %}
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Signup</title>
-</head>
-<body>
+  </head>
+  <body>
     {% block content %}
-    <link rel="stylesheet" href="{% static 'signup.css' %}">
+    <link rel="stylesheet" href="{% static 'signup.css' %}" />
     <body class="loginBody">
-        <div id="particles-js">
+      <div id="particles-js">
         <form action="/signup/" method="POST" class="loginBox">
-            {% csrf_token %}
-            <h1 class="titleLogin">Registrarse</h1>
-            <div class="inputBox">
+          {% csrf_token %}
+          <h1 class="titleLogin">Registrarse</h1>
+          <div class="inputBox">
             <input type="text" name="username" id="username" class="inputs" />
             <label for="username" class="labelInput">Usuario</label>
           </div>
           <div class="inputBox">
-            <input type="password" name="password1" id="password" class="inputs" />
+            <input
+              type="password"
+              name="password1"
+              id="password"
+              class="inputs"
+            />
             <label for="password" class="labelInput">Contraseña</label>
-            <img src="{% static 'eye.svg' %}" class="togglePassword" id="eye-open" />
-                    <img src="{% static 'eye-slash.svg' %}" class="togglePassword" id="eye-closed" style="display: none;" />
+            <img
+              src="{% static 'eye.svg' %}"
+              class="togglePassword"
+              id="eye-open"
+            />
+            <img
+              src="{% static 'eye-slash.svg' %}"
+              class="togglePassword hidden"
+              id="eye-closed"
+            />
           </div>
           <div class="inputBox">
-            <input type="password" id="confirmPassword" name="password2" class="inputs" />
+            <input
+              type="password"
+              id="confirmPassword"
+              name="password2"
+              class="inputs"
+            />
             <label for="confirmPassword" class="labelInput"
               >Confirmar Contraseña</label
             >
-          
+            <img
+              src="{% static 'eye.svg' %}"
+              class="togglePassword"
+              id="eye-open2"
+            />
+            <img
+              src="{% static 'eye-slash.svg' %}"
+              class="togglePassword hidden"
+              id="eye-closed2"
+            />
           </div>
           <button class="btnLogin">Ingresar</button>
           <p>Si ya tenes una cuenta <a href="/signin/">inicia!</a></p>
           <span class="errorSignup">{{error}}</span>
         </form>
-        {% if error %}
-       {% endif %}
+        {% if error %} {% endif %}
       </div>
       <script src="http://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
       <script src="http://threejs.org/examples/js/libs/stats.min.js"></script>
-    
-        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-        <script src="{% static 'login.js' %}"></script>
-      </body>
+
+      <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+      <script src="{% static 'login.js' %}"></script>
+    </body>
     {% endblock content %}
-    
-        
   </body>
 </html>
