@@ -11,8 +11,8 @@
 - [x] Calcular tiempo de respuesta promedio 
 - [x] Visualizar tablas y graficos
 - [x] Descarga reporte PDF o CSV
-- [ ] APP mobile
-- [ ] Alojar en un servidor con acceso por usuario clave de caracter publico e incluir en la presentacion las credenciales de acceso.
+- [x] APP mobile
+- [x] Alojar en un servidor con acceso por usuario clave de caracter publico e incluir en la presentacion las credenciales de acceso.
 
 ### ToDoDocs
 - [ ] Presentar todo en formato texto en un documento con titulo "Testeos, algoritmos e interacciones"
